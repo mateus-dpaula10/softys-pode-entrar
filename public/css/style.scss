@@ -100,8 +100,6 @@ header {
     }
 
     #buttons_about {
-        max-width: 1000px;
-        margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -131,6 +129,15 @@ header {
             h1 {
                 margin-bottom: 0;
             }
+        }
+    }
+
+    .tab-content {
+        display: none;
+        margin-top: 5rem;
+
+        &.active {
+            display: block;
         }
     }
 }

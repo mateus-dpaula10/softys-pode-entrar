@@ -34,10 +34,10 @@
 
                 <div class="col-12 mt-5">
                     <div id="buttons_about">
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form1">
                             Inscreva-se colaboradores
                         </button>
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form2">
                             Inscreva-se voluntários
                         </button>
                         <a href="/#faq" class="btn btn-primary">
@@ -49,171 +49,373 @@
                     </div>
                 </div>
 
-                <form action="" method="POST" id="forms_colaboradores">
-                    @csrf
-
-                    <h4 class="mt-4">Seção 1 - Dados do Colaborador</h4>
-                    <div class="mb-3">
-                        <label class="form-label">Nome completo do colaborador</label>
-                        <input type="text" class="form-control" name="colaborador_nome" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">E-mail corporativo (se tiver)</label>
-                        <input type="email" class="form-control" name="colaborador_email">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Telefone para contato com DDD</label>
-                        <input type="text" class="form-control" name="colaborador_telefone" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Qual a sua unidade de trabalho?</label>
-                        <select class="form-select" name="colaborador_unidade" id="colaborador_unidade" required>
-                            <option value="">Selecione...</option>
-                            <option value="Anápolis">Anápolis</option>
-                            <option value="Caieiras">Caieiras</option>
-                            <option value="Mogi das Cruzes">Mogi das Cruzes</option>
-                            <option value="Piraí">Piraí</option>
-                            <option value="Vila Olímpia">Vila Olímpia</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Qual a sua diretoria?</label>
-                        <select class="form-select" name="colaborador_diretoria" id="colaborador_diretoria" required>
-                            <option value="">Selecione...</option>
-                            <option value="Comercial Professional">Comercial Professional</option>
-                            <option value="Comercial Varejo">Comercial Varejo</option>
-                            <option value="Comercial Grandes Contas">Comercial Grandes Contas</option>
-                            <option value="Comercial Negócios Emergentes">Comercial Negócios Emergentes</option>
-                            <option value="P&O">P&O</option>
-                            <option value="Jurídico">Jurídico</option>
-                            <option value="Financeiro, Adm. e TI">Financeiro, Adm. e TI</option>
-                            <option value="Operações">Operações</option>
-                            <option value="Supply Chain">Supply Chain</option>
-                        </select>
-                    </div>
-
-                    <div id="unidadeEscolhaComercial" class="mb-3 d-none">
-                        <p>
-                            Você, colaborador(a) do Comercial ou da Vila Olímpia, tem a oportunidade de inscrever seus dependentes para 
-                            participar do evento na fábrica mais próxima de sua residência.    
-                        </p>
-                        <p class="fw-semibold">
-                            Atenção! O deslocamento é de responsabilidade do próprio colaborador. 
-                        </p>
-                        <label class="form-label">Qual unidade você escolhe?</label>
-                        <select class="form-select" name="unidade_escolha_comercial">
-                            <option value="">Selecione...</option>
-                            <option value="Caieiras">Caieiras</option>
-                            <option value="Mogi das Cruzes">Mogi das Cruzes</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Qual a quantidade de dependentes que participará do evento? *Dependentes entende-se filhos, acompanhantes ou familiares.    
-                        </label>
-                        <input type="number" class="form-control" name="dependentes_qtd" id="dependentes_qtd" min="0" max="6">
-                    </div>
-
-                    <div id="convidadosSection" class="d-none">
-                        <h4 class="mt-5">Seção 2 - Identifique os Convidados</h4>
-                        <div id="convidadosContainer"></div>
-                    </div>
-
-                    <div id="avisoMenor" class="alert alert-warning d-none mt-3">
-                        Um dos convidados precisa ser maior de idade para acompanhar os dependentes.
-                    </div>
-
-                    <div id="transporteCaieiras" class="d-none mt-4">
-                        <h5>Deslocamento - Caieiras</h5>
-                        <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
-                        <select class="form-select" name="transporte_caieiras">
-                            <option value="">Selecione...</option>
-                            <option value="Transporte público">Transporte público</option>
-                            <option value="Veículo próprio">Veículo próprio</option>
-                        </select>
-                    </div>
-
-                    <div id="transportePirai" class="d-none mt-4">
-                        <h5>Deslocamento - Piraí</h5>
-                        <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
-                        <select class="form-select" name="transporte_pirai" id="transporte_pirai">
-                            <option value="">Selecione...</option>
-                            <option value="Transporte público">Transporte público</option>
-                            <option value="Veículo próprio">Veículo próprio</option>
-                            <option value="Fretado Softys">Fretado Softys</option>
-                        </select>
-
-                        <div id="rotasPirai" class="d-none mt-3">
-                            <label class="form-label">Escolha uma das opções de linhas disponíveis:</label>
-                            <select class="form-select" name="rota_pirai">
-                                <option value="">Selecione...</option>
-                                <option value="Rota 1 - Arrozal / Barra Mansa / Volta Redonda / Pinheiral">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</option>
-                                <option value="Rota 2 - Barra do Piraí / Centro de Eventos Tutucão">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</option>
-                            </select>
-
-                            <div id="rota1Detalhe" class="card d-none mb-3">
-                                <div class="card-body">
-                                    <h6 class="fw-bold">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</h6>
-                                    <p><strong>Nome da Linha:</strong> Arrozal e BARRA MANSA X VOLTA REDONDA X PINHEIRAL X SOFTYS</p>
-                                    <p><strong>Pontos de parada:</strong></p>
-                                    <ul class="small">
-                                        <li>Rua Sebastião Dias da Rocha – Embarque no Ginásio Poliesportivo</li>
-                                        <li>Rua Cl. Ribeiro Sobrinho – Embarque próximo à casa nº 145</li>
-                                        <li>Arrozal – Embarque na Praça</li>
-                                        <li>Rua Professora Amália – Embarque em frente ao muro laranja (casa nº 124)</li>
-                                        <li>Barra Mansa – Rodoviária de Barra Mansa</li>
-                                        <li>Av. Dário Aragão – Ponto proximidades Linha Férrea</li>
-                                        <li>Rua Dom Pedro II – Casarão de Construção</li>
-                                        <li>Rodoviária de Volta Redonda – Ponto na BR-393</li>
-                                        <li>Av. Getúlio Vargas – Ponto Posto JK</li>
-                                        <li>Rodovia Lúcio Meira – Ponto próximo à loja de piscinas</li>
-                                        <li>Pinheiral – Ponto no parque</li>
-                                        <li>Rodovia Lúcio Meira – Ponto próximo ao UniFOA</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div id="rota2Detalhe" class="card d-none">
-                                <div class="card-body">
-                                    <h6 class="fw-bold">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</h6>
-                                    <p><strong>Nome da Linha:</strong> Barra do Piraí e CENTRO DE EVENTOS TUTUCÃO</p>
-                                    <p><strong>Pontos de parada:</strong></p>
-                                    <ul class="small">
-                                        <li>Praça Nilo Peçanha – Em frente à Igreja São Benedito</li>
-                                        <li>Rua Aurelínio Garcia – Ponto Segurança Presente</li>
-                                        <li>Av. Prefeito Arthur Costa – Em frente à Loja OZ Jeans</li>
-                                        <li>Rua Paulo Fernandes – Em frente à Quadra Maracanã</li>
-                                        <li>Av. Miguel Couto Filho – Próximo à Igreja A.A. Grupo Independência</li>
-                                        <li>RJ-145 – Ao lado da Styrotec</li>
-                                        <li>RJ-146 – Ponto da Casa Amarela</li>
-                                        <li>Piraí – Próximo ao Centro de Eventos Tutucão</li>
-                                        <li>Rua Bulhões de Carvalho – Lado Sacolão e Mercearia</li>
-                                        <li>Rodoviária de Piraí</li>
-                                        <li>Rua Saldanha Marinho, 87 – Próximo à passarela Jaqueira</li>
-                                        <li>Rodovia Presidente Dutra – Restaurante</li>
-                                        <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
-                                        <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
-                                        <li>Piraí – Centro de Eventos de Piraí</li>
-                                        <li>Rua Vista Alegre – Brizolão - Casa Amarela</li>
-                                        <li>Rodoviária de Piraí (retorno)</li>
-                                        <li>Rodovia Presidente Dutra – Restaurante (retorno)</li>
-                                        <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
-                                        <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="col-12 mt-5">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Sucesso!</strong> {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                         </div>
-                    </div>
+                    @endif
+    
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Erro!</strong> {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                        </div>
+                    @endif
+    
+                    @if ($errors->any())
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Verifique os campos abaixo:</strong>
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                        </div>
+                    @endif
 
-                    <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-primary btn-lg">Enviar Inscrição</button>
+                    <div class="tab-content" id="form1">
+                        <h3>INSCRIÇÕES COLABORADORES</h3>
+    
+                        <form action="{{ route('inscricoes.colaboradores.store') }}" method="POST" id="forms_colaboradores">
+                            @csrf
+        
+                            <h4 class="mt-4">Seção 1 - Dados do Colaborador</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Nome completo do colaborador</label>
+                                <input type="text" class="form-control" name="nome" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">E-mail corporativo (se tiver)</label>
+                                <input type="email" class="form-control" name="email">
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Telefone para contato com DDD</label>
+                                <input type="text" class="form-control" name="telefone" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Qual a sua unidade de trabalho?</label>
+                                <select class="form-select" name="unidade" id="unidade" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Anápolis">Anápolis</option>
+                                    <option value="Caieiras">Caieiras</option>
+                                    <option value="Mogi das Cruzes">Mogi das Cruzes</option>
+                                    <option value="Piraí">Piraí</option>
+                                    <option value="Vila Olímpia">Vila Olímpia</option>
+                                </select>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Qual a sua diretoria?</label>
+                                <select class="form-select" name="diretoria" id="diretoria" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Comercial Professional">Comercial Professional</option>
+                                    <option value="Comercial Varejo">Comercial Varejo</option>
+                                    <option value="Comercial Grandes Contas">Comercial Grandes Contas</option>
+                                    <option value="Comercial Negócios Emergentes">Comercial Negócios Emergentes</option>
+                                    <option value="P&O">P&O</option>
+                                    <option value="Jurídico">Jurídico</option>
+                                    <option value="Financeiro, Adm. e TI">Financeiro, Adm. e TI</option>
+                                    <option value="Operações">Operações</option>
+                                    <option value="Supply Chain">Supply Chain</option>
+                                </select>
+                            </div>
+        
+                            <div id="unidadeEscolhaComercial" class="mb-3 d-none">
+                                <p>
+                                    Você, colaborador(a) do Comercial ou da Vila Olímpia, tem a oportunidade de inscrever seus dependentes para 
+                                    participar do evento na fábrica mais próxima de sua residência.    
+                                </p>
+                                <p class="fw-semibold">
+                                    Atenção! O deslocamento é de responsabilidade do próprio colaborador. 
+                                </p>
+                                <label class="form-label">Qual unidade você escolhe?</label>
+                                <select class="form-select" name="unidade_escolha_comercial">
+                                    <option value="">Selecione...</option>
+                                    <option value="Caieiras">Caieiras</option>
+                                    <option value="Mogi das Cruzes">Mogi das Cruzes</option>
+                                </select>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Qual a quantidade de dependentes que participará do evento? *Dependentes entende-se filhos, acompanhantes ou familiares.    
+                                </label>
+                                <input type="number" class="form-control" name="dependentes_qtd" id="dependentes_qtd" min="0" max="6">
+                            </div>
+        
+                            <div id="convidadosSection" class="d-none">
+                                <h4 class="mt-5">Seção 2 - Identifique os Convidados</h4>
+                                <div id="convidadosContainer"></div>
+                            </div>
+        
+                            <div id="avisoMenor" class="alert alert-warning d-none mt-3">
+                                Um dos convidados precisa ser maior de idade para acompanhar os dependentes.
+                            </div>
+        
+                            <div id="transporteCaieiras" class="d-none mt-4">
+                                <h5>Deslocamento - Caieiras</h5>
+                                <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
+                                <select class="form-select" name="transporte_caieiras">
+                                    <option value="">Selecione...</option>
+                                    <option value="Transporte público">Transporte público</option>
+                                    <option value="Veículo próprio">Veículo próprio</option>
+                                </select>
+                            </div>
+        
+                            <div id="transportePirai" class="d-none mt-4">
+                                <h5>Deslocamento - Piraí</h5>
+                                <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
+                                <select class="form-select" name="transporte_pirai" id="transporte_pirai">
+                                    <option value="">Selecione...</option>
+                                    <option value="Transporte público">Transporte público</option>
+                                    <option value="Veículo próprio">Veículo próprio</option>
+                                    <option value="Fretado Softys">Fretado Softys</option>
+                                </select>
+        
+                                <div id="rotasPirai" class="d-none mt-3">
+                                    <label class="form-label">Escolha uma das opções de linhas disponíveis:</label>
+                                    <select class="form-select" name="rota_pirai">
+                                        <option value="">Selecione...</option>
+                                        <option value="Rota 1 - Arrozal / Barra Mansa / Volta Redonda / Pinheiral">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</option>
+                                        <option value="Rota 2 - Barra do Piraí / Centro de Eventos Tutucão">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</option>
+                                    </select>
+        
+                                    <div id="rota1Detalhe" class="card d-none mb-3">
+                                        <div class="card-body">
+                                            <h6 class="fw-bold">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</h6>
+                                            <p><strong>Nome da Linha:</strong> Arrozal e BARRA MANSA X VOLTA REDONDA X PINHEIRAL X SOFTYS</p>
+                                            <p><strong>Pontos de parada:</strong></p>
+                                            <ul class="small">
+                                                <li>Rua Sebastião Dias da Rocha – Embarque no Ginásio Poliesportivo</li>
+                                                <li>Rua Cl. Ribeiro Sobrinho – Embarque próximo à casa nº 145</li>
+                                                <li>Arrozal – Embarque na Praça</li>
+                                                <li>Rua Professora Amália – Embarque em frente ao muro laranja (casa nº 124)</li>
+                                                <li>Barra Mansa – Rodoviária de Barra Mansa</li>
+                                                <li>Av. Dário Aragão – Ponto proximidades Linha Férrea</li>
+                                                <li>Rua Dom Pedro II – Casarão de Construção</li>
+                                                <li>Rodoviária de Volta Redonda – Ponto na BR-393</li>
+                                                <li>Av. Getúlio Vargas – Ponto Posto JK</li>
+                                                <li>Rodovia Lúcio Meira – Ponto próximo à loja de piscinas</li>
+                                                <li>Pinheiral – Ponto no parque</li>
+                                                <li>Rodovia Lúcio Meira – Ponto próximo ao UniFOA</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+        
+                                    <div id="rota2Detalhe" class="card d-none">
+                                        <div class="card-body">
+                                            <h6 class="fw-bold">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</h6>
+                                            <p><strong>Nome da Linha:</strong> Barra do Piraí e CENTRO DE EVENTOS TUTUCÃO</p>
+                                            <p><strong>Pontos de parada:</strong></p>
+                                            <ul class="small">
+                                                <li>Praça Nilo Peçanha – Em frente à Igreja São Benedito</li>
+                                                <li>Rua Aurelínio Garcia – Ponto Segurança Presente</li>
+                                                <li>Av. Prefeito Arthur Costa – Em frente à Loja OZ Jeans</li>
+                                                <li>Rua Paulo Fernandes – Em frente à Quadra Maracanã</li>
+                                                <li>Av. Miguel Couto Filho – Próximo à Igreja A.A. Grupo Independência</li>
+                                                <li>RJ-145 – Ao lado da Styrotec</li>
+                                                <li>RJ-146 – Ponto da Casa Amarela</li>
+                                                <li>Piraí – Próximo ao Centro de Eventos Tutucão</li>
+                                                <li>Rua Bulhões de Carvalho – Lado Sacolão e Mercearia</li>
+                                                <li>Rodoviária de Piraí</li>
+                                                <li>Rua Saldanha Marinho, 87 – Próximo à passarela Jaqueira</li>
+                                                <li>Rodovia Presidente Dutra – Restaurante</li>
+                                                <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
+                                                <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
+                                                <li>Piraí – Centro de Eventos de Piraí</li>
+                                                <li>Rua Vista Alegre – Brizolão - Casa Amarela</li>
+                                                <li>Rodoviária de Piraí (retorno)</li>
+                                                <li>Rodovia Presidente Dutra – Restaurante (retorno)</li>
+                                                <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
+                                                <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="text-center mt-5">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitColaboradores">Enviar Inscrição</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                
+                    <div class="tab-content" id="form2">
+                        <h3>INSCRIÇÕES VOLUNTÁRIOS</h3>
+    
+                        <form action="{{ route('inscricoes.colaboradores.store') }}" method="POST" id="forms_colaboradores">
+                            @csrf
+        
+                            <h4 class="mt-4">Seção 3 - Dados do Colaborador</h4>
+                            <div class="mb-3">
+                                <label class="form-label">Nome completo do colaborador</label>
+                                <input type="text" class="form-control" name="nome" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">E-mail corporativo (se tiver)</label>
+                                <input type="email" class="form-control" name="email">
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Telefone para contato com DDD</label>
+                                <input type="text" class="form-control" name="telefone" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Qual a sua unidade de trabalho?</label>
+                                <select class="form-select" name="unidade" id="unidade" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Anápolis">Anápolis</option>
+                                    <option value="Caieiras">Caieiras</option>
+                                    <option value="Mogi das Cruzes">Mogi das Cruzes</option>
+                                    <option value="Piraí">Piraí</option>
+                                    <option value="Vila Olímpia">Vila Olímpia</option>
+                                </select>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">Qual a sua diretoria?</label>
+                                <select class="form-select" name="diretoria" id="diretoria" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Comercial Professional">Comercial Professional</option>
+                                    <option value="Comercial Varejo">Comercial Varejo</option>
+                                    <option value="Comercial Grandes Contas">Comercial Grandes Contas</option>
+                                    <option value="Comercial Negócios Emergentes">Comercial Negócios Emergentes</option>
+                                    <option value="P&O">P&O</option>
+                                    <option value="Jurídico">Jurídico</option>
+                                    <option value="Financeiro, Adm. e TI">Financeiro, Adm. e TI</option>
+                                    <option value="Operações">Operações</option>
+                                    <option value="Supply Chain">Supply Chain</option>
+                                </select>
+                            </div>
+        
+                            <div id="unidadeEscolhaComercial" class="mb-3 d-none">
+                                <p>
+                                    Você, colaborador(a) do Comercial ou da Vila Olímpia, tem a oportunidade de inscrever seus dependentes para 
+                                    participar do evento na fábrica mais próxima de sua residência.    
+                                </p>
+                                <p class="fw-semibold">
+                                    Atenção! O deslocamento é de responsabilidade do próprio colaborador. 
+                                </p>
+                                <label class="form-label">Qual unidade você escolhe?</label>
+                                <select class="form-select" name="unidade_escolha_comercial">
+                                    <option value="">Selecione...</option>
+                                    <option value="Caieiras">Caieiras</option>
+                                    <option value="Mogi das Cruzes">Mogi das Cruzes</option>
+                                </select>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Qual a quantidade de dependentes que participará do evento? *Dependentes entende-se filhos, acompanhantes ou familiares.    
+                                </label>
+                                <input type="number" class="form-control" name="dependentes_qtd" id="dependentes_qtd" min="0" max="6">
+                            </div>
+        
+                            <div id="convidadosSection" class="d-none">
+                                <h4 class="mt-5">Seção 2 - Identifique os Convidados</h4>
+                                <div id="convidadosContainer"></div>
+                            </div>
+        
+                            <div id="avisoMenor" class="alert alert-warning d-none mt-3">
+                                Um dos convidados precisa ser maior de idade para acompanhar os dependentes.
+                            </div>
+        
+                            <div id="transporteCaieiras" class="d-none mt-4">
+                                <h5>Deslocamento - Caieiras</h5>
+                                <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
+                                <select class="form-select" name="transporte_caieiras">
+                                    <option value="">Selecione...</option>
+                                    <option value="Transporte público">Transporte público</option>
+                                    <option value="Veículo próprio">Veículo próprio</option>
+                                </select>
+                            </div>
+        
+                            <div id="transportePirai" class="d-none mt-4">
+                                <h5>Deslocamento - Piraí</h5>
+                                <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
+                                <select class="form-select" name="transporte_pirai" id="transporte_pirai">
+                                    <option value="">Selecione...</option>
+                                    <option value="Transporte público">Transporte público</option>
+                                    <option value="Veículo próprio">Veículo próprio</option>
+                                    <option value="Fretado Softys">Fretado Softys</option>
+                                </select>
+        
+                                <div id="rotasPirai" class="d-none mt-3">
+                                    <label class="form-label">Escolha uma das opções de linhas disponíveis:</label>
+                                    <select class="form-select" name="rota_pirai">
+                                        <option value="">Selecione...</option>
+                                        <option value="Rota 1 - Arrozal / Barra Mansa / Volta Redonda / Pinheiral">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</option>
+                                        <option value="Rota 2 - Barra do Piraí / Centro de Eventos Tutucão">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</option>
+                                    </select>
+        
+                                    <div id="rota1Detalhe" class="card d-none mb-3">
+                                        <div class="card-body">
+                                            <h6 class="fw-bold">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</h6>
+                                            <p><strong>Nome da Linha:</strong> Arrozal e BARRA MANSA X VOLTA REDONDA X PINHEIRAL X SOFTYS</p>
+                                            <p><strong>Pontos de parada:</strong></p>
+                                            <ul class="small">
+                                                <li>Rua Sebastião Dias da Rocha – Embarque no Ginásio Poliesportivo</li>
+                                                <li>Rua Cl. Ribeiro Sobrinho – Embarque próximo à casa nº 145</li>
+                                                <li>Arrozal – Embarque na Praça</li>
+                                                <li>Rua Professora Amália – Embarque em frente ao muro laranja (casa nº 124)</li>
+                                                <li>Barra Mansa – Rodoviária de Barra Mansa</li>
+                                                <li>Av. Dário Aragão – Ponto proximidades Linha Férrea</li>
+                                                <li>Rua Dom Pedro II – Casarão de Construção</li>
+                                                <li>Rodoviária de Volta Redonda – Ponto na BR-393</li>
+                                                <li>Av. Getúlio Vargas – Ponto Posto JK</li>
+                                                <li>Rodovia Lúcio Meira – Ponto próximo à loja de piscinas</li>
+                                                <li>Pinheiral – Ponto no parque</li>
+                                                <li>Rodovia Lúcio Meira – Ponto próximo ao UniFOA</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+        
+                                    <div id="rota2Detalhe" class="card d-none">
+                                        <div class="card-body">
+                                            <h6 class="fw-bold">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</h6>
+                                            <p><strong>Nome da Linha:</strong> Barra do Piraí e CENTRO DE EVENTOS TUTUCÃO</p>
+                                            <p><strong>Pontos de parada:</strong></p>
+                                            <ul class="small">
+                                                <li>Praça Nilo Peçanha – Em frente à Igreja São Benedito</li>
+                                                <li>Rua Aurelínio Garcia – Ponto Segurança Presente</li>
+                                                <li>Av. Prefeito Arthur Costa – Em frente à Loja OZ Jeans</li>
+                                                <li>Rua Paulo Fernandes – Em frente à Quadra Maracanã</li>
+                                                <li>Av. Miguel Couto Filho – Próximo à Igreja A.A. Grupo Independência</li>
+                                                <li>RJ-145 – Ao lado da Styrotec</li>
+                                                <li>RJ-146 – Ponto da Casa Amarela</li>
+                                                <li>Piraí – Próximo ao Centro de Eventos Tutucão</li>
+                                                <li>Rua Bulhões de Carvalho – Lado Sacolão e Mercearia</li>
+                                                <li>Rodoviária de Piraí</li>
+                                                <li>Rua Saldanha Marinho, 87 – Próximo à passarela Jaqueira</li>
+                                                <li>Rodovia Presidente Dutra – Restaurante</li>
+                                                <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
+                                                <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
+                                                <li>Piraí – Centro de Eventos de Piraí</li>
+                                                <li>Rua Vista Alegre – Brizolão - Casa Amarela</li>
+                                                <li>Rodoviária de Piraí (retorno)</li>
+                                                <li>Rodovia Presidente Dutra – Restaurante (retorno)</li>
+                                                <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
+                                                <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="text-center mt-5">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitColaboradores">Enviar Inscrição</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>            
 
                 <div class="modal fade" id="modalRegulamento" tabindex="-1" aria-labelledby="modalRegulamentoLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -419,9 +621,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        
-    </script>
-@endpush

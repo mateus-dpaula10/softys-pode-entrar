@@ -81,8 +81,6 @@ header #box_header p {
   border-radius: 1rem;
 }
 #about #buttons_about {
-  max-width: 1000px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -106,6 +104,13 @@ header #box_header p {
 }
 #about #modalRegulamento .modal-header h1 {
   margin-bottom: 0;
+}
+#about .tab-content {
+  display: none;
+  margin-top: 5rem;
+}
+#about .tab-content.active {
+  display: block;
 }
 
 #faq {
