@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+header {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  color: #FFF;
+  z-index: 1;
+}
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/images/familia-com-filha-pela-arvore-de-natal-brincando-com-ponei-de-madeira.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: top center;
+  z-index: -2;
+  border-radius: 0 0 2.5rem 2.5rem;
+}
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.75));
+  z-index: -1;
+  border-radius: 0 0 2.5rem 2.5rem;
+}
+header #box_header {
+  max-width: 800px;
+}
+header #box_header img {
+  width: 15vw;
+  min-width: 15rem;
+  animation: ping-top 3s infinite ease-in-out;
+}
+@keyframes ping-top {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+header #box_header h1 {
+  font-weight: 400;
+  font-size: 50px;
+}
+header #box_header p {
+  margin-bottom: 0;
+}
+@media (min-width: 768px) {
+  header #box_header h1 {
+    font-size: 80px;
+  }
+  header #box_header h3 {
+    font-size: 30px;
+  }
+}
+
+#about {
+  background-color: #0B95B1;
+  padding: 10rem 0;
+  color: #FFF;
+  margin-top: -5rem;
+}
+#about h1 {
+  margin-bottom: 2rem;
+}
+#about ul {
+  margin-bottom: 0;
+}
+#about img {
+  border-radius: 1rem;
+}
+#about #buttons_about {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+#about #buttons_about .btn {
+  flex: 1;
+}
+#about #buttons_about .btn:nth-child(odd) {
+  background-color: #002E6D;
+  border-color: #002E6D;
+}
+#about #buttons_about .btn:nth-child(even) {
+  background-color: #1b4e95;
+  border-color: #1b4e95;
+}
+@media (min-width: 768px) {
+  #about #buttons_about {
+    flex-direction: row;
+  }
+}
+#about #modalRegulamento .modal-header h1 {
+  margin-bottom: 0;
+}
+
+#faq {
+  padding: 5rem 0 10rem;
+}
+#faq h1, #faq p {
+  text-align: center;
+}
+
+footer {
+  background-color: #002E6D;
+  padding: 5rem 0;
+  color: #FFF;
+  border-radius: 2.5rem 2.5rem 0 0;
+  margin-top: -5rem;
+  position: relative;
+  z-index: 1;
+}
+footer img {
+  margin: 0 auto;
+  display: block;
+  width: 15vw;
+  min-width: 15rem;
+  animation: ping-top 3s infinite ease-in-out;
+}
+footer p {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+footer small {
+  display: block;
+  text-align: center;
+}
+footer small a {
+  color: #FFF;
+}/*# sourceMappingURL=style.css.map */

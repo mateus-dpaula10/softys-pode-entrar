@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+$primary: #002E6D;
+$secondary: #32C5D5;
+$tertiaty: #0B95B1;
+
+header {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    z-index: 1;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('../img/images/familia-com-filha-pela-arvore-de-natal-brincando-com-ponei-de-madeira.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: top center;
+        z-index: -2;
+        border-radius: 0 0 2.5rem 2.5rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, rgba(0,0,0,.75));
+        z-index: -1;
+        border-radius: 0 0 2.5rem 2.5rem;
+    }
+
+    #box_header {
+        max-width: 800px;
+
+        img {
+            width: 15vw;
+            min-width: 15rem;
+            animation: ping-top 3s infinite ease-in-out;
+        }
+
+        @keyframes ping-top {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-weight: 400;
+            font-size: 50px;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 80px;
+            }
+
+            h3 {
+                font-size: 30px;
+            }
+        }
+    }
+}
+
+#about {
+    background-color: $tertiaty;
+    padding: 10rem 0;
+    color: #FFF;
+    margin-top: -5rem;  
+
+    h1 {
+        margin-bottom: 2rem;
+    }
+
+    ul {
+        margin-bottom: 0;
+    }
+
+    img {
+        border-radius: 1rem;
+    }
+
+    #buttons_about {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1rem;
+
+        .btn {
+            flex: 1;      
+
+            &:nth-child(odd) {
+                background-color: $primary;   
+                border-color: $primary;   
+            }
+
+            &:nth-child(even) {
+                background-color: #1b4e95;    
+                border-color: #1b4e95;  
+            }
+        }
+
+        @media (min-width: 768px) {
+            flex-direction: row;
+        }
+    }
+
+    #modalRegulamento {
+        .modal-header {
+            h1 {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+#faq {
+    padding: 5rem 0 10rem;
+
+    h1, p {
+        text-align: center;
+    }
+}
+
+footer {
+    background-color: $primary;
+    padding: 5rem 0;
+    color: #FFF;
+    border-radius: 2.5rem 2.5rem 0 0;
+    margin-top: -5rem;
+    position: relative;
+    z-index: 1;
+
+    img {
+        margin: 0 auto;
+        display: block;
+        width: 15vw;
+        min-width: 15rem;
+        animation: ping-top 3s infinite ease-in-out;
+    }
+    
+    p {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    small {
+        display: block;
+        text-align: center;
+
+        a {
+            color: #FFF;
+        }
+    }
+}
