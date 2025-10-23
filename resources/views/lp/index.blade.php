@@ -50,36 +50,10 @@
                 </div>
 
                 <div class="col-12 mt-5">
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Sucesso!</strong> {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                        </div>
-                    @endif
-    
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Erro!</strong> {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                        </div>
-                    @endif
-    
-                    @if ($errors->any())
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Verifique os campos abaixo:</strong>
-                            <ul class="mb-0 mt-2">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
-                        </div>
-                    @endif
-
                     <div class="tab-content" id="form1">
                         <h3>INSCRIÇÕES COLABORADORES</h3>
     
-                        <form action="{{ route('inscricoes.colaboradores.store') }}" method="POST" id="forms_colaboradores">
+                        <form action="{{ route('inscricoes.colaboradores.storeColab') }}" method="POST" id="forms_colaboradores">
                             @csrf
         
                             <h4 class="mt-4">Seção 1 - Dados do Colaborador</h4>
@@ -95,7 +69,7 @@
         
                             <div class="mb-3">
                                 <label class="form-label">Telefone para contato com DDD</label>
-                                <input type="text" class="form-control" name="telefone" required>
+                                <input type="text" class="form-control maskTel" name="telefone" maxlength="15" required>
                             </div>
         
                             <div class="mb-3">
@@ -248,29 +222,48 @@
                 
                     <div class="tab-content" id="form2">
                         <h3>INSCRIÇÕES VOLUNTÁRIOS</h3>
+
+                        <h4 class="mt-4 fw-semibold">
+                            Quer ser voluntário do Pode Entrar - Celebrações que aproximam?
+                        </h4>
+
+                        <p>
+                            O evento dará oportunidade dos colaboradores trazerem seus familiares para conhecer as nossas fábricas em uma experiência única.
+                            Como voluntário, você será fundamental para garantir que o evento ocorra de maneira organizada e que os visitantes se sintam bem acolhidos.
+                        </p>
     
-                        <form action="{{ route('inscricoes.colaboradores.store') }}" method="POST" id="forms_colaboradores">
+                        <form action="{{ route('inscricoes.colaboradores.storeVolun') }}" method="POST" id="forms_voluntarios">
                             @csrf
         
-                            <h4 class="mt-4">Seção 3 - Dados do Colaborador</h4>
                             <div class="mb-3">
-                                <label class="form-label">Nome completo do colaborador</label>
-                                <input type="text" class="form-control" name="nome" required>
+                                <label class="form-label">Nome completo:</label>
+                                <input type="text" name="full_name" class="form-control" required>
                             </div>
-        
+
                             <div class="mb-3">
-                                <label class="form-label">E-mail corporativo (se tiver)</label>
-                                <input type="email" class="form-control" name="email">
+                                <label class="form-label">E-mail corporativo:</label>
+                                <input type="email" name="email" class="form-control" required>
                             </div>
-        
+
                             <div class="mb-3">
-                                <label class="form-label">Telefone para contato com DDD</label>
-                                <input type="text" class="form-control" name="telefone" required>
+                                <label class="form-label">Telefone para contato:</label>
+                                <input type="text" name="phone" class="form-control maskTel" required>
                             </div>
-        
+
                             <div class="mb-3">
-                                <label class="form-label">Qual a sua unidade de trabalho?</label>
-                                <select class="form-select" name="unidade" id="unidade" required>
+                                <label class="form-label">Tamanho de camiseta:</label>
+                                <select name="shirt_size" class="form-select" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="P">P</option>
+                                    <option value="M">M</option>
+                                    <option value="G">G</option>
+                                    <option value="GG">GG</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Qual sua unidade?</label>
+                                <select name="unit" id="unitSelect" class="form-select" required>
                                     <option value="">Selecione...</option>
                                     <option value="Anápolis">Anápolis</option>
                                     <option value="Caieiras">Caieiras</option>
@@ -279,139 +272,33 @@
                                     <option value="Vila Olímpia">Vila Olímpia</option>
                                 </select>
                             </div>
-        
-                            <div class="mb-3">
-                                <label class="form-label">Qual a sua diretoria?</label>
-                                <select class="form-select" name="diretoria" id="diretoria" required>
-                                    <option value="">Selecione...</option>
-                                    <option value="Comercial Professional">Comercial Professional</option>
-                                    <option value="Comercial Varejo">Comercial Varejo</option>
-                                    <option value="Comercial Grandes Contas">Comercial Grandes Contas</option>
-                                    <option value="Comercial Negócios Emergentes">Comercial Negócios Emergentes</option>
-                                    <option value="P&O">P&O</option>
-                                    <option value="Jurídico">Jurídico</option>
-                                    <option value="Financeiro, Adm. e TI">Financeiro, Adm. e TI</option>
-                                    <option value="Operações">Operações</option>
-                                    <option value="Supply Chain">Supply Chain</option>
-                                </select>
-                            </div>
-        
-                            <div id="unidadeEscolhaComercial" class="mb-3 d-none">
-                                <p>
-                                    Você, colaborador(a) do Comercial ou da Vila Olímpia, tem a oportunidade de inscrever seus dependentes para 
-                                    participar do evento na fábrica mais próxima de sua residência.    
-                                </p>
-                                <p class="fw-semibold">
-                                    Atenção! O deslocamento é de responsabilidade do próprio colaborador. 
-                                </p>
-                                <label class="form-label">Qual unidade você escolhe?</label>
-                                <select class="form-select" name="unidade_escolha_comercial">
-                                    <option value="">Selecione...</option>
-                                    <option value="Caieiras">Caieiras</option>
-                                    <option value="Mogi das Cruzes">Mogi das Cruzes</option>
-                                </select>
-                            </div>
-        
-                            <div class="mb-3">
+
+                            <div class="mb-3 d-none" id="supportUnitContainer">
                                 <label class="form-label">
-                                    Qual a quantidade de dependentes que participará do evento? *Dependentes entende-se filhos, acompanhantes ou familiares.    
+                                    Indique a unidade que gostaria de se voluntariar:
                                 </label>
-                                <input type="number" class="form-control" name="dependentes_qtd" id="dependentes_qtd" min="0" max="6">
-                            </div>
-        
-                            <div id="convidadosSection" class="d-none">
-                                <h4 class="mt-5">Seção 2 - Identifique os Convidados</h4>
-                                <div id="convidadosContainer"></div>
-                            </div>
-        
-                            <div id="avisoMenor" class="alert alert-warning d-none mt-3">
-                                Um dos convidados precisa ser maior de idade para acompanhar os dependentes.
-                            </div>
-        
-                            <div id="transporteCaieiras" class="d-none mt-4">
-                                <h5>Deslocamento - Caieiras</h5>
-                                <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
-                                <select class="form-select" name="transporte_caieiras">
+                                <select name="support_unit" class="form-select">
                                     <option value="">Selecione...</option>
-                                    <option value="Transporte público">Transporte público</option>
-                                    <option value="Veículo próprio">Veículo próprio</option>
+                                    <option value="Mogi das Cruzes">Prefiro Mogi</option>
+                                    <option value="Caieiras">Prefiro Caieiras</option>
                                 </select>
                             </div>
-        
-                            <div id="transportePirai" class="d-none mt-4">
-                                <h5>Deslocamento - Piraí</h5>
-                                <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
-                                <select class="form-select" name="transporte_pirai" id="transporte_pirai">
-                                    <option value="">Selecione...</option>
-                                    <option value="Transporte público">Transporte público</option>
-                                    <option value="Veículo próprio">Veículo próprio</option>
-                                    <option value="Fretado Softys">Fretado Softys</option>
-                                </select>
-        
-                                <div id="rotasPirai" class="d-none mt-3">
-                                    <label class="form-label">Escolha uma das opções de linhas disponíveis:</label>
-                                    <select class="form-select" name="rota_pirai">
-                                        <option value="">Selecione...</option>
-                                        <option value="Rota 1 - Arrozal / Barra Mansa / Volta Redonda / Pinheiral">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</option>
-                                        <option value="Rota 2 - Barra do Piraí / Centro de Eventos Tutucão">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</option>
-                                    </select>
-        
-                                    <div id="rota1Detalhe" class="card d-none mb-3">
-                                        <div class="card-body">
-                                            <h6 class="fw-bold">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</h6>
-                                            <p><strong>Nome da Linha:</strong> Arrozal e BARRA MANSA X VOLTA REDONDA X PINHEIRAL X SOFTYS</p>
-                                            <p><strong>Pontos de parada:</strong></p>
-                                            <ul class="small">
-                                                <li>Rua Sebastião Dias da Rocha – Embarque no Ginásio Poliesportivo</li>
-                                                <li>Rua Cl. Ribeiro Sobrinho – Embarque próximo à casa nº 145</li>
-                                                <li>Arrozal – Embarque na Praça</li>
-                                                <li>Rua Professora Amália – Embarque em frente ao muro laranja (casa nº 124)</li>
-                                                <li>Barra Mansa – Rodoviária de Barra Mansa</li>
-                                                <li>Av. Dário Aragão – Ponto proximidades Linha Férrea</li>
-                                                <li>Rua Dom Pedro II – Casarão de Construção</li>
-                                                <li>Rodoviária de Volta Redonda – Ponto na BR-393</li>
-                                                <li>Av. Getúlio Vargas – Ponto Posto JK</li>
-                                                <li>Rodovia Lúcio Meira – Ponto próximo à loja de piscinas</li>
-                                                <li>Pinheiral – Ponto no parque</li>
-                                                <li>Rodovia Lúcio Meira – Ponto próximo ao UniFOA</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-        
-                                    <div id="rota2Detalhe" class="card d-none">
-                                        <div class="card-body">
-                                            <h6 class="fw-bold">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</h6>
-                                            <p><strong>Nome da Linha:</strong> Barra do Piraí e CENTRO DE EVENTOS TUTUCÃO</p>
-                                            <p><strong>Pontos de parada:</strong></p>
-                                            <ul class="small">
-                                                <li>Praça Nilo Peçanha – Em frente à Igreja São Benedito</li>
-                                                <li>Rua Aurelínio Garcia – Ponto Segurança Presente</li>
-                                                <li>Av. Prefeito Arthur Costa – Em frente à Loja OZ Jeans</li>
-                                                <li>Rua Paulo Fernandes – Em frente à Quadra Maracanã</li>
-                                                <li>Av. Miguel Couto Filho – Próximo à Igreja A.A. Grupo Independência</li>
-                                                <li>RJ-145 – Ao lado da Styrotec</li>
-                                                <li>RJ-146 – Ponto da Casa Amarela</li>
-                                                <li>Piraí – Próximo ao Centro de Eventos Tutucão</li>
-                                                <li>Rua Bulhões de Carvalho – Lado Sacolão e Mercearia</li>
-                                                <li>Rodoviária de Piraí</li>
-                                                <li>Rua Saldanha Marinho, 87 – Próximo à passarela Jaqueira</li>
-                                                <li>Rodovia Presidente Dutra – Restaurante</li>
-                                                <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
-                                                <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
-                                                <li>Piraí – Centro de Eventos de Piraí</li>
-                                                <li>Rua Vista Alegre – Brizolão - Casa Amarela</li>
-                                                <li>Rodoviária de Piraí (retorno)</li>
-                                                <li>Rodovia Presidente Dutra – Restaurante (retorno)</li>
-                                                <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
-                                                <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Termo de Compromisso</label>
+                                <div class="border rounded p-3 bg-light small text-black">
+                                    <p>(I) Aceito expressamente o processamento de meus dados pessoais obtidos através da presente inscrição, para que a Softys possa gerir todas as atividades relacionadas com o programa Pode Entrar. Da mesma forma, aceito expressamente a cessão e processamento de minha imagem contida nas fotografias ou vídeos que forem registrados no desenvolvimento do programa.</p>
+                                    <p class="mb-0">(II) Comprometo-me a seguir os horários e atividades designadas.</p>
+                                </div>
+
+                                <div class="form-check mt-2">
+                                    <input type="checkbox" name="terms_accepted" id="terms" class="form-check-input" required>
+                                    <label for="terms" class="form-check-label">Li, entendi e aceito</label>
                                 </div>
                             </div>
-        
+
                             <div class="text-center mt-5">
-                                <button type="submit" class="btn btn-primary btn-lg" id="submitColaboradores">Enviar Inscrição</button>
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitVoluntarios">Enviar Inscrição</button>
                             </div>
                         </form>
                     </div>
@@ -421,7 +308,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="modalRegulamentoLabel">Regulamento</h1>
+                                <h1 class="modal-title fs-5 mb-0" id="modalRegulamentoLabel">Regulamento</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -452,6 +339,61 @@
                                     <li>Concordo que a Gravação, bem como quaisquer fotografias, gravações de vídeo ou áudio criadas a partir da Gravação, devem permanecer como propriedade exclusiva da Softys.</li>
                                     <li>Compreendi que o Material objeto do presente formulário não envolverá conteúdo prejudicial, vexatório, ofensivo, danoso ou que de qualquer forma viole os direitos do(a) menor.</li>
                                 </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 mb-0" id="successModalLabel">Inscrição Confirmada</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-2">🎉 <strong>SUA INSCRIÇÃO ESTÁ CONFIRMADA NO PODE ENTRAR!</strong></p>
+                                <p>Em breve você receberá orientações sobre o evento.</p>
+                                <p class="mt-3 small text-muted">
+                                    Posteriormente, você receberá via e-mail um documento pelo <strong>DocuSign</strong> para preencher a autorização de uso de imagem dos menores de idade.  
+                                    Os acompanhantes maiores de idade também receberão o documento em seus e-mails pessoais para assinatura.  
+                                    Isso condiciona a autorização de acesso ao evento.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal fade" id="limitModal" tabindex="-1" aria-labelledby="limitModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 mb-0" id="limitModalLabel">Vagas Esgotadas</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-2">🙏 Agradecemos o seu interesse em participar deste momento tão especial!</p>
+                                <p>As vagas para esta edição já foram preenchidas, pois o evento tem capacidade limitada para garantir o conforto e a segurança de todos os participantes.</p>
+                                <p class="mt-3 fw-semibold">Esperamos sua inscrição na edição do <strong>Pode Entrar 2026!</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="limitModalVolun" tabindex="-1" aria-labelledby="limitModalVolunLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 mb-0" id="limitModalVolunLabel">Inscrições Encerradas</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-3">
+                                    Agradecemos o seu interesse em participar deste momento tão especial.
+                                </p>
+                                <p class="fw-semibold">
+                                    No entanto, as vagas para voluntários desta edição já foram preenchidas.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -621,3 +563,55 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        @if(session('success'))
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        @endif
+
+        @if($errors->has('unidade'))
+            const limitModal = new bootstrap.Modal(document.getElementById('limitModal'));
+            limitModal.show();
+        @endif
+
+        @if($errors->has('unit'))
+            const limitModalVolun = new bootstrap.Modal(document.getElementById('limitModalVolun'));
+            limitModalVolun.show();
+        @endif
+
+        const form = document.getElementById('forms_colaboradores');
+        const modalRegulamentoEl = document.getElementById('modalRegulamento');
+        const modalRegulamento = new bootstrap.Modal(modalRegulamentoEl)
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let modalFooter = modalRegulamentoEl.querySelector('.modal-footer');
+            if (!modalFooter) {
+                modalFooter = document.createElement('div');
+                modalFooter.classList.add('modal-footer');
+
+                modalFooter.innerHTML = `
+                    <div class="me-auto text-start">
+                        <small class="text-muted">
+                            Por favor, leia o regulamento acima e confirme que está ciente antes de prosseguir.
+                        </small>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmarModal">Confirmar</button>
+                `;
+
+                modalRegulamentoEl.querySelector('.modal-content').appendChild(modalFooter);
+
+                modalFooter.querySelector('#btnConfirmarModal').addEventListener('click', () => {
+                    modalRegulamento.hide();
+                    form.submit();
+                });
+            }
+
+            modalRegulamento.show();
+        });
+    </script>
+@endpush

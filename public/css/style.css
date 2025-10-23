@@ -102,9 +102,6 @@ header #box_header p {
     flex-direction: row;
   }
 }
-#about #modalRegulamento .modal-header h1 {
-  margin-bottom: 0;
-}
 #about .tab-content {
   display: none;
   margin-top: 5rem;

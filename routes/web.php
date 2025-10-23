@@ -7,4 +7,5 @@ Route::get('/', function () {
     return view('lp.index');
 });
 
-Route::post('/inscricoes-colaboradores', [InscricaoController::class, 'store'])->name('inscricoes.colaboradores.store');
+Route::post('/inscricoes-colaboradores', [InscricaoController::class, 'storeColab'])->name('inscricoes.colaboradores.storeColab');
+Route::post('/inscricoes-voluntarios', [InscricaoController::class, 'storeVolun'])->name('inscricoes.colaboradores.storeVolun');

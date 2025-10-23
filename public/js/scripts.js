@@ -1,3 +1,44 @@
+const inputTel = document.querySelectorAll('.maskTel');
+const inputRG = document.querySelectorAll('.maskRG');
+
+inputTel.forEach(i => {
+    i.addEventListener('input', function (e) {
+        let valor = e.target.value.replace(/\D/g, '');
+
+        if (valor.length > 11) valor = valor.slice(0, 11);
+
+        if (valor.length > 10) {
+            valor = valor.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, '($1) $2 $3-$4');
+        } else if (valor.length > 6) {
+            valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+        } else if (valor.length > 2) {
+            valor = valor.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
+        } else {
+            valor = valor.replace(/^(\d*)$/, '($1');
+        }
+
+        e.target.value = valor;
+    });
+
+    i.addEventListener('blur', function (e) {
+        const valor = e.target.value.replace(/\D/g, '');
+        const erroMsgId = e.target.id + '_error';
+
+        let msg = document.getElementById(erroMsgId);
+        if (msg) msg.remove();
+
+        if (valor.length < 10) {
+            msg = document.createElement('div');
+            msg.id = erroMsgId;
+            msg.className = 'text-white small mt-1';
+            msg.innerText = 'Por favor, insira um número de telefone válido com DDD.';
+            e.target.parentNode.appendChild(msg);
+            e.target.focus();
+        }
+    });
+});
+
+// formulario inscricoes colaboradores
 const unidadeSelect = document.getElementById('unidade');
 const diretoriaSelect = document.getElementById('diretoria');
 const unidadeEscolhaDiv = document.getElementById('unidadeEscolhaComercial');
@@ -111,7 +152,7 @@ dependentesInput.addEventListener('input', function () {
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">RG</label>
-                                <input type="text" class="form-control" name="convidados[${i}][rg]" value="${dados.rg || ''}" required>
+                                <input type="text" class="form-control maskRG" name="convidados[${i}][rg]" value="${dados.rg || ''}" required>
                             </div>
                         </div>
                         <div class="mt-2">
@@ -138,6 +179,22 @@ dependentesInput.addEventListener('input', function () {
                 </div>
             `);
         }
+
+        convidadosContainer.addEventListener('input', function (e) {
+            if (e.target.classList.contains('maskRG')) {
+                let valor = e.target.value.replace(/\D/g, '');
+
+                if (valor.length > 9) valor = valor.slice(0, 9);
+
+                if (valor.length > 5) {
+                    valor = valor.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,1})$/, '$1.$2.$3-$4');
+                } else if (valor.length > 2) {
+                    valor = valor.replace(/^(\d{2})(\d{0,3})$/, '$1.$2');
+                }
+
+                e.target.value = valor;
+            }
+        });
 
         document.querySelectorAll('.nascimento').forEach(input => {
             input.removeEventListener('change', handleBirthChange);
@@ -227,22 +284,25 @@ function handleParentescoChange(e) {
 
 function checkMaiorIdade() {
     const nascimentosInputs = document.querySelectorAll('.nascimento');
+    const avisoMenor = document.getElementById('avisoMenor');
+
+    if (nascimentosInputs.length === 0) {
+        avisoMenor.classList.add('d-none');
+        btnSubmitColaboradores.disabled = false;
+        return;
+    }
+
     let temMaior = false;
-    let totalConvidados = nascimentosInputs.length;
 
     nascimentosInputs.forEach(input => {
-        const index = input.dataset.index;
         const dataNasc = new Date(input.value);
-
         if (!isNaN(dataNasc)) {
             const idade = calcIdade(dataNasc);
             if (idade >= 18) temMaior = true;            
         }
     });
 
-    const avisoMenor = document.getElementById('avisoMenor');
-
-    if ((totalConvidados === 1 && !temMaior) || (totalConvidados > 1 && !temMaior)) {
+    if (!temMaior) {
         avisoMenor.classList.remove('d-none');
         btnSubmitColaboradores.disabled = true;
     } else {
@@ -257,6 +317,7 @@ document.addEventListener('change', (e) => {
     }
 });
 
+// tabs para formularios
 const tabButtons = document.querySelectorAll('button[data-bs-toggle="tab"]');
 
 tabButtons.forEach(button => {
@@ -273,3 +334,29 @@ tabButtons.forEach(button => {
         target.classList.add('active');
     });
 });
+
+// formulario inscricoes voluntarios
+const unitSelect = document.getElementById('unitSelect');
+const supportContainer = document.getElementById('supportUnitContainer');
+const termsVoluntarios = document.getElementById('terms');
+const btnSubmitVoluntarios = document.getElementById('submitVoluntarios');
+
+unitSelect.addEventListener('change', function () {
+    if (this.value === 'Vila Olímpia') {    
+        supportContainer.classList.remove('d-none');
+    } else {
+        supportContainer.classList.add('d-none');
+        supportContainer.querySelector('select').value = '';
+    }
+});
+
+function checkedTermsVoluntarios() {
+    if (termsVoluntarios.checked) {
+        btnSubmitVoluntarios.disabled = false;
+    } else {
+        btnSubmitVoluntarios.disabled = true;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', checkedTermsVoluntarios);
+termsVoluntarios.addEventListener('change', checkedTermsVoluntarios);
