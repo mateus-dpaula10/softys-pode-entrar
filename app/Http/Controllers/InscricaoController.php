@@ -124,7 +124,7 @@ class InscricaoController extends Controller
             }
         })->count();
             
-        if ($totalUnidade >= 1) {
+        if ($totalUnidade >= 15) {
             return redirect()->back()->withErrors([
                 'unit' => "O limite de 15 inscrições para {$unidadeParaContagem} já foi atingido."
             ])->withInput();

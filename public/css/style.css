@@ -66,10 +66,13 @@ header #box_header p {
 }
 
 #about {
+  position: relative;
   background-color: #0B95B1;
-  padding: 10rem 0;
   color: #FFF;
+  padding: 10rem 0 5rem;
   margin-top: -5rem;
+  z-index: 0;
+  overflow: hidden;
 }
 #about h1 {
   margin-bottom: 2rem;
@@ -80,11 +83,12 @@ header #box_header p {
 #about img {
   border-radius: 1rem;
 }
-#about #buttons_about {
+#about #buttons_about > div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+  margin-top: 1rem;
 }
 #about #buttons_about .btn {
   flex: 1;
@@ -98,7 +102,7 @@ header #box_header p {
   border-color: #1b4e95;
 }
 @media (min-width: 768px) {
-  #about #buttons_about {
+  #about #buttons_about > div {
     flex-direction: row;
   }
 }
@@ -109,12 +113,27 @@ header #box_header p {
 #about .tab-content.active {
   display: block;
 }
+#about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/elements/Elemento-01.png"), url("../img/elements/Elemento-02.png"), url("../img/elements/Elemento-03.png"), url("../img/elements/Elemento-04.png"), url("../img/elements/Elemento-05.png"), url("../img/elements/Estrela-01.png"), url("../img/elements/Estrela-02.png"), url("../img/elements/Estrela-03.png"), url("../img/elements/Logo-01.png"), url("../img/elements/Logo-02.png"), url("../img/elements/Logo-03.png");
+  background-repeat: no-repeat;
+  background-position: 0% 10%, 10% 50%, 20% 80%, 40% 20%, 55% 60%, 65% 30%, 70% 75%, 80% 40%, 85% 20%, 90% 60%, 95% 30%;
+  background-size: 150px auto;
+  opacity: 0.1;
+  z-index: -1;
+}
 
 #faq {
   padding: 5rem 0 10rem;
 }
 #faq h1, #faq p {
   text-align: center;
+}
+
+#dashboard {
+  padding: 5rem 0 10rem;
 }
 
 footer {

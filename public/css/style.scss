@@ -82,10 +82,13 @@ header {
 }
 
 #about {
+    position: relative;
     background-color: $tertiaty;
-    padding: 10rem 0;
     color: #FFF;
+    padding: 10rem 0 5rem;
     margin-top: -5rem;  
+    z-index: 0;
+    overflow: hidden;
 
     h1 {
         margin-bottom: 2rem;
@@ -100,10 +103,13 @@ header {
     }
 
     #buttons_about {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 1rem;
+        > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
 
         .btn {
             flex: 1;      
@@ -120,7 +126,9 @@ header {
         }
 
         @media (min-width: 768px) {
-            flex-direction: row;
+            > div {
+                flex-direction: row;
+            }
         }
     }
 
@@ -132,6 +140,32 @@ header {
             display: block;
         }
     }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            url('../img/elements/Elemento-01.png'),
+            url('../img/elements/Elemento-02.png'),
+            url('../img/elements/Elemento-03.png'),
+            url('../img/elements/Elemento-04.png'),
+            url('../img/elements/Elemento-05.png'),
+            url('../img/elements/Estrela-01.png'),
+            url('../img/elements/Estrela-02.png'),
+            url('../img/elements/Estrela-03.png'),
+            url('../img/elements/Logo-01.png'),
+            url('../img/elements/Logo-02.png'),
+            url('../img/elements/Logo-03.png')
+        ;
+        background-repeat: no-repeat;
+        background-position:
+            0% 10%, 10% 50%, 20% 80%, 40% 20%, 55% 60%, 
+            65% 30%, 70% 75%, 80% 40%, 85% 20%, 90% 60%, 95% 30%;
+        background-size: 150px auto;
+        opacity: 0.1;
+        z-index: -1;
+    }
 }
 
 #faq {
@@ -140,6 +174,10 @@ header {
     h1, p {
         text-align: center;
     }
+}
+
+#dashboard {
+    padding: 5rem 0 10rem;
 }
 
 footer {

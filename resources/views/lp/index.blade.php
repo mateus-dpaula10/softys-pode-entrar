@@ -4,9 +4,8 @@
 
 @section('content')
     <div id="about">
-        <div class="element_about"></div>
         <div class="container">
-            <div class="row justify-content-between align-items-center">
+            <div class="row justify-content-between align-items-center" data-aos="fade-up" data-aos-duration="3000">
                 <div class="col-12 col-lg-4">
                     <h1>Quem pode participar?</h1>
                     <p>
@@ -34,18 +33,21 @@
 
                 <div class="col-12 mt-5">
                     <div id="buttons_about">
-                        <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form1">
-                            Inscreva-se colaboradores
-                        </button>
-                        <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form2">
-                            Inscreva-se voluntários
-                        </button>
-                        <a href="/#faq" class="btn btn-primary">
-                            Dúvidas
-                        </a>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegulamento">
-                            Regulamento
-                        </button>
+                        <h4>Selecione a opção desejada abaixo</h4>
+                        <div>
+                            <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form1">
+                                Inscreva-se colaboradores
+                            </button>
+                            <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form2">
+                                Inscreva-se voluntários
+                            </button>
+                            <a href="/#faq" class="btn btn-primary">
+                                Dúvidas
+                            </a>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegulamento">
+                                Regulamento
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -302,102 +304,7 @@
                             </div>
                         </form>
                     </div>
-                </div>            
-
-                <div class="modal fade" id="modalRegulamento" tabindex="-1" aria-labelledby="modalRegulamentoLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mb-0" id="modalRegulamentoLabel">Regulamento</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h6>1. Público-Alvo</h6>
-                                <p>O evento é exclusivo para cônjuges e filhos de colaboradores da Softys, com idade entre 5 e 15 anos.</p>
-
-                                <h6>2. Inscrição</h6>
-                                <p>A participação no evento depende de inscrição prévia obrigatória por meio do hotsite oficial.</p>
-
-                                <h6>3. Vestuário</h6>
-                                <p>É obrigatório o uso de calça, sapato fechado e camiseta/blusa que cubra os ombros.</p>
-
-                                <h6>4. Local e Conduta</h6>
-                                <p>O evento será realizado nas instalações das plantas da Softys. Todos os participantes devem seguir rigorosamente as orientações de segurança e conduta fornecidas pela organização.</p>
-
-                                <h6>5. Alterações na Programação</h6>
-                                <p>A Softys reserva-se o direito de alterar a programação do evento, caso necessário, garantindo sempre o bem-estar e a segurança de todos os participantes.</p>
-
-                                <h6>Termos de Consentimento</h6>
-                                <ul>
-                                    <li>Autorizo a empresa SOFTYS BRASIL LTDA, inscrita no CNPJ sob o n.º 44.145.845/0001-40, com sede na Rua Chedid Jafet, nº 222, conj. 11, Bloco C, 1º andar, Vila Olímpia, CEP 04551-065, São Paulo/SP (“Softys”), a utilizar os meus dados pessoais, incluindo nome, minha imagem, voz ou outros na ação "Pode entrar".</li>
-                                    <li>Entendo que este consentimento é fornecido a título gratuito, isto é, não receberei qualquer pagamento, compensação ou outro tipo de remuneração.</li>
-                                    <li>Concordo com o fato de que a Softys pode, a partir de agora ou a qualquer momento no futuro, retocar ou editar a Gravação, conforme necessário e a seu exclusivo critério.</li>
-                                    <li>Entendo que a Gravação e o Material poderão ser lançados publicamente por meio do Facebook, Instagram, YouTube, LinkedIn, TV e outras mídias digitais, após o qual a Softys não será responsável pelo gerenciamento ou uso posterior, sobre os quais não detém poder de ingerência.</li>
-                                    <li>Se você tiver qualquer dúvida ou solicitação em relação a este Termo de Consentimento, entre em contato com: <a href="mailto:juridico.brasil@softys.com">juridico.brasil@softys.com</a> e <a href="mailto:dpo.brasil@softys.com">dpo.brasil@softys.com</a></li>
-                                    <li>No caso de ausência do responsável legal, o menor de idade será acompanhado por uma pessoa maior de idade, previamente autorizada pelos responsáveis legais. Os pais ou responsáveis legais declaram estar cientes e de acordo que qualquer incidente ou dano envolvendo o menor de idade será de integral responsabilidade dos próprios responsáveis legais e/ou do acompanhante autorizado. A Softys isenta-se de qualquer responsabilidade por danos, incidentes ou ocorrências que envolvam o menor de idade, tanto durante o acompanhamento por terceiros quanto durante a participação no programa.</li>
-                                    <li>Por meio do presente instrumento, renuncio a qualquer direito de inspecionar ou aprovar a Gravação antes de seu uso.</li>
-                                    <li>Concordo que a Gravação, bem como quaisquer fotografias, gravações de vídeo ou áudio criadas a partir da Gravação, devem permanecer como propriedade exclusiva da Softys.</li>
-                                    <li>Compreendi que o Material objeto do presente formulário não envolverá conteúdo prejudicial, vexatório, ofensivo, danoso ou que de qualquer forma viole os direitos do(a) menor.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mb-0" id="successModalLabel">Inscrição Confirmada</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="mb-2">🎉 <strong>SUA INSCRIÇÃO ESTÁ CONFIRMADA NO PODE ENTRAR!</strong></p>
-                                <p>Em breve você receberá orientações sobre o evento.</p>
-                                <p class="mt-3 small text-muted">
-                                    Posteriormente, você receberá via e-mail um documento pelo <strong>DocuSign</strong> para preencher a autorização de uso de imagem dos menores de idade.  
-                                    Os acompanhantes maiores de idade também receberão o documento em seus e-mails pessoais para assinatura.  
-                                    Isso condiciona a autorização de acesso ao evento.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="modal fade" id="limitModal" tabindex="-1" aria-labelledby="limitModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mb-0" id="limitModalLabel">Vagas Esgotadas</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="mb-2">🙏 Agradecemos o seu interesse em participar deste momento tão especial!</p>
-                                <p>As vagas para esta edição já foram preenchidas, pois o evento tem capacidade limitada para garantir o conforto e a segurança de todos os participantes.</p>
-                                <p class="mt-3 fw-semibold">Esperamos sua inscrição na edição do <strong>Pode Entrar 2026!</strong></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="limitModalVolun" tabindex="-1" aria-labelledby="limitModalVolunLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 mb-0" id="limitModalVolunLabel">Inscrições Encerradas</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="mb-3">
-                                    Agradecemos o seu interesse em participar deste momento tão especial.
-                                </p>
-                                <p class="fw-semibold">
-                                    No entanto, as vagas para voluntários desta edição já foram preenchidas.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>   
             </div>
         </div>
     </div>
@@ -405,7 +312,7 @@
     <div id="faq">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12" data-aos="zoom-in" data-aos-duration="3000">
                     <h1>FAQ</h1>
                     <p>
                         Tem alguma dúvida? A gente te ajuda!
@@ -562,6 +469,119 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalRegulamento" tabindex="-1" aria-labelledby="modalRegulamentoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 mb-0" id="modalRegulamentoLabel">Regulamento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Público-Alvo</h6>
+                    <p>O evento é exclusivo para cônjuges e filhos de colaboradores da Softys, com idade entre 5 e 15 anos.</p>
+
+                    <h6>2. Inscrição</h6>
+                    <p>A participação no evento depende de inscrição prévia obrigatória por meio do hotsite oficial.</p>
+
+                    <h6>3. Vestuário</h6>
+                    <p>É obrigatório o uso de calça, sapato fechado e camiseta/blusa que cubra os ombros.</p>
+
+                    <h6>4. Local e Conduta</h6>
+                    <p>O evento será realizado nas instalações das plantas da Softys. Todos os participantes devem seguir rigorosamente as orientações de segurança e conduta fornecidas pela organização.</p>
+
+                    <h6>5. Alterações na Programação</h6>
+                    <p>A Softys reserva-se o direito de alterar a programação do evento, caso necessário, garantindo sempre o bem-estar e a segurança de todos os participantes.</p>
+
+                    <h6>Termos de Consentimento</h6>
+                    <ul>
+                        <li>Autorizo a empresa SOFTYS BRASIL LTDA, inscrita no CNPJ sob o n.º 44.145.845/0001-40, com sede na Rua Chedid Jafet, nº 222, conj. 11, Bloco C, 1º andar, Vila Olímpia, CEP 04551-065, São Paulo/SP (“Softys”), a utilizar os meus dados pessoais, incluindo nome, minha imagem, voz ou outros na ação "Pode entrar".</li>
+                        <li>Entendo que este consentimento é fornecido a título gratuito, isto é, não receberei qualquer pagamento, compensação ou outro tipo de remuneração.</li>
+                        <li>Concordo com o fato de que a Softys pode, a partir de agora ou a qualquer momento no futuro, retocar ou editar a Gravação, conforme necessário e a seu exclusivo critério.</li>
+                        <li>Entendo que a Gravação e o Material poderão ser lançados publicamente por meio do Facebook, Instagram, YouTube, LinkedIn, TV e outras mídias digitais, após o qual a Softys não será responsável pelo gerenciamento ou uso posterior, sobre os quais não detém poder de ingerência.</li>
+                        <li>Se você tiver qualquer dúvida ou solicitação em relação a este Termo de Consentimento, entre em contato com: <a href="mailto:juridico.brasil@softys.com">juridico.brasil@softys.com</a> e <a href="mailto:dpo.brasil@softys.com">dpo.brasil@softys.com</a></li>
+                        <li>No caso de ausência do responsável legal, o menor de idade será acompanhado por uma pessoa maior de idade, previamente autorizada pelos responsáveis legais. Os pais ou responsáveis legais declaram estar cientes e de acordo que qualquer incidente ou dano envolvendo o menor de idade será de integral responsabilidade dos próprios responsáveis legais e/ou do acompanhante autorizado. A Softys isenta-se de qualquer responsabilidade por danos, incidentes ou ocorrências que envolvam o menor de idade, tanto durante o acompanhamento por terceiros quanto durante a participação no programa.</li>
+                        <li>Por meio do presente instrumento, renuncio a qualquer direito de inspecionar ou aprovar a Gravação antes de seu uso.</li>
+                        <li>Concordo que a Gravação, bem como quaisquer fotografias, gravações de vídeo ou áudio criadas a partir da Gravação, devem permanecer como propriedade exclusiva da Softys.</li>
+                        <li>Compreendi que o Material objeto do presente formulário não envolverá conteúdo prejudicial, vexatório, ofensivo, danoso ou que de qualquer forma viole os direitos do(a) menor.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 mb-0" id="successModalLabel">Inscrição Confirmada</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-2">🎉 <strong>SUA INSCRIÇÃO ESTÁ CONFIRMADA NO PODE ENTRAR!</strong></p>
+                    <p>Em breve você receberá orientações sobre o evento.</p>
+                    <p class="mt-3 small text-muted">
+                        Posteriormente, você receberá via e-mail um documento pelo <strong>DocuSign</strong> para preencher a autorização de uso de imagem dos menores de idade.  
+                        Os acompanhantes maiores de idade também receberão o documento em seus e-mails pessoais para assinatura.  
+                        Isso condiciona a autorização de acesso ao evento.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="limitModal" tabindex="-1" aria-labelledby="limitModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 mb-0" id="limitModalLabel">Vagas Esgotadas</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-2">🙏 Agradecemos o seu interesse em participar deste momento tão especial!</p>
+                    <p>As vagas para esta edição já foram preenchidas, pois o evento tem capacidade limitada para garantir o conforto e a segurança de todos os participantes.</p>
+                    <p class="mt-3 fw-semibold">Esperamos sua inscrição na edição do <strong>Pode Entrar 2026!</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="limitModalVolun" tabindex="-1" aria-labelledby="limitModalVolunLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 mb-0" id="limitModalVolunLabel">Inscrições Encerradas</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3">
+                        Agradecemos o seu interesse em participar deste momento tão especial.
+                    </p>
+                    <p class="fw-semibold">
+                        No entanto, as vagas para voluntários desta edição já foram preenchidas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 mb-0" id="validationModalLabel">Erros de validação</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -579,6 +599,11 @@
         @if($errors->has('unit'))
             const limitModalVolun = new bootstrap.Modal(document.getElementById('limitModalVolun'));
             limitModalVolun.show();
+        @endif
+
+        @if($errors->any())
+            const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
+            validationModal.show();
         @endif
 
         const form = document.getElementById('forms_colaboradores');

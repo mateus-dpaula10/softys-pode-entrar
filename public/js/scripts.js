@@ -1,3 +1,5 @@
+AOS.init();
+
 const inputTel = document.querySelectorAll('.maskTel');
 const inputRG = document.querySelectorAll('.maskRG');
 
