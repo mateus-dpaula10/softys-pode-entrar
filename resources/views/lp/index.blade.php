@@ -464,6 +464,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThirty" aria-expanded="false" aria-controls="flush-collapseThirty">
+                                    Os colaboradores poderão participar do evento?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThirty" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    O colaborador só pode acompanhar o menor de idade, caso estiver de férias ou folga.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
