@@ -25,8 +25,7 @@
 
                 <div class="col-12 col-lg-7 mt-3 mt-lg-0">
                     <figure>
-                        <img src="{{ asset('img/images/Mockup-02.jpg') }}" alt="Imagem com unidades, datas e horário" class="img-fluid">
-                        <figcaption>Aqui entrará a imagem desenvolvida com unidades, datas e horário</figcaption>
+                        <img src="{{ asset('img/images/Criativo-Hotsite.png') }}" alt="Imagem com unidades, datas e horário" class="img-fluid">
                     </figure>
                     <legend></legend>
                 </div>
@@ -36,10 +35,10 @@
                         <h4>Selecione a opção desejada abaixo</h4>
                         <div>
                             <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form1">
-                                Inscreva-se colaboradores
+                                Inscrição para colaboradores
                             </button>
                             <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form2">
-                                Inscreva-se voluntários
+                                Inscrição para voluntários
                             </button>
                             <a href="/#faq" class="btn btn-primary">
                                 Dúvidas
