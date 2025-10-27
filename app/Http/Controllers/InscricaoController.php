@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\InscricaoColaborador;
 use App\Models\InscricaoVoluntario;
+use App\Models\InscricaoDependente;
+use App\Mail\InscricaoColaboradorMail;
+use App\Mail\InscricaoVoluntarioMail;
+use Illuminate\Support\Facades\Mail;
 
 class InscricaoController extends Controller
 {
@@ -44,14 +48,21 @@ class InscricaoController extends Controller
 
         $unidadeParaContagem = $request->unidade;
 
-        if ($request->unidade === 'Vila Olímpia' && $request->filled('unidade_escolha_comercial')) {
-            $unidadeParaContagem = $request->unidade_escolha_comercial;
+        if (
+            $request->unidade === 'Vila Olímpia' || 
+            str_contains(strtolower($request->diretoria), 'comercial')
+        ) {
+            if ($request->filled('unidade_escolha_comercial')) {
+                $unidadeParaContagem = $request->unidade_escolha_comercial;
+            }
         }
 
         $totalUnidade = InscricaoColaborador::where(function ($query) use ($request, $unidadeParaContagem) {
-            if ($request->unidade === 'Vila Olímpia') {
-                $query->where('unidade', 'Vila Olímpia')
-                    ->where('unidade_escolha_comercial', $unidadeParaContagem);
+            if (
+                $request->unidade === 'Vila Olímpia' ||
+                str_contains(strtolower($request->diretoria), 'comercial')
+            ) {
+                $query->where('unidade_escolha_comercial', $unidadeParaContagem);
             } else {
                 $query->where('unidade', $unidadeParaContagem);
             }
@@ -77,9 +88,34 @@ class InscricaoController extends Controller
 
         if ($request->has('convidados')) {
             foreach ($request->convidados as $convidado) {
-                $colaborador->dependentes()->create($convidado);
+                $autorizacao = null;
+
+                if (!empty($convidado['aut_nome_responsavel'])) {
+                    $autorizacao = "
+                        Autorização de acompanhamento de menor
+
+                        Eu, {$convidado['aut_nome_responsavel']}, portador(a) do CPF nº {$convidado['aut_cpf_responsavel']} e RG nº {$convidado['aut_rg_responsavel']}, na qualidade de responsável legal pelo(a) menor {$convidado['aut_nome_menor']}, nascido(a) em {$convidado['aut_data_menor']}, autorizo que o(a) Sr.(a) {$convidado['aut_nome_acomp']}, portador(a) do CPF nº {$convidado['aut_cpf_acomp']}, RG nº {$convidado['aut_rg_acomp']}, e que mantém a relação de {$convidado['aut_parentesco']}, acompanhe o menor durante o evento promovido pela empresa 'Pode Entrar'.
+
+                        Declaro estar ciente de que:
+                        1) A responsabilidade pela conduta do menor permanece sob minha inteira responsabilidade;
+                        2) O acompanhante designado deverá zelar pela segurança, bem-estar e cumprimento das regras do evento;
+                        3) Em caso de qualquer situação que coloque em risco a integridade do menor ou de terceiros, a empresa poderá determinar a retirada imediata do participante, sem prejuízo de outras medidas cabíveis.
+                    ";
+                }
+
+                InscricaoDependente::create([
+                    'inscricao_colaborador_id' => $colaborador->id,
+                    'nome' => $convidado['nome'],
+                    'nascimento' => $convidado['nascimento'],
+                    'rg' => $convidado['rg'] ?? null,
+                    'parentesco' => $convidado['parentesco'],
+                    'email' => $convidado['email'] ?? null,
+                    'autorizacao' => $autorizacao,
+                ]);
             }
         }
+
+        // Mail::to($colaborador->email)->send(new InscricaoColaboradorMail($colaborador));
 
         return redirect()->back()->with('success', 'Inscrição realizada com sucesso!');
     }
@@ -130,7 +166,7 @@ class InscricaoController extends Controller
             ])->withInput();
         }
 
-        InscricaoVoluntario::create([
+        $voluntario = InscricaoVoluntario::create([
             'full_name' => $request->full_name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -140,6 +176,8 @@ class InscricaoController extends Controller
             'terms_accepted' => true
         ]);
 
-        return redirect()->back()->with('success', 'Inscrição realizada com sucesso!');
+        // Mail::to($voluntario->email)->send(new InscricaoVoluntarioMail($voluntario));
+
+        return redirect()->back()->with('successVolun', 'Inscrição realizada com sucesso!');
     }
 }

@@ -27,7 +27,6 @@
                     <figure>
                         <img src="{{ asset('img/images/Criativo-Hotsite.png') }}" alt="Imagem com unidades, datas e horário" class="img-fluid">
                     </figure>
-                    <legend></legend>
                 </div>
 
                 <div class="col-12 mt-5">
@@ -40,8 +39,8 @@
                             <button class="btn btn-primary" data-bs-toggle="tab" data-bs-target="#form2">
                                 Inscrição para voluntários
                             </button>
-                            <a href="/#faq" class="btn btn-primary">
-                                Dúvidas
+                            <a href="#faq" class="btn btn-primary">
+                                Perguntas Frequentes
                             </a>
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegulamento">
                                 Regulamento
@@ -91,7 +90,6 @@
                                     <option value="">Selecione...</option>
                                     <option value="Comercial Professional">Comercial Professional</option>
                                     <option value="Comercial Varejo">Comercial Varejo</option>
-                                    <option value="Comercial Grandes Contas">Comercial Grandes Contas</option>
                                     <option value="Comercial Negócios Emergentes">Comercial Negócios Emergentes</option>
                                     <option value="P&O">P&O</option>
                                     <option value="Jurídico">Jurídico</option>
@@ -112,8 +110,10 @@
                                 <label class="form-label">Qual unidade você escolhe?</label>
                                 <select class="form-select" name="unidade_escolha_comercial">
                                     <option value="">Selecione...</option>
+                                    <option value="Anápolis">Anápolis</option>
                                     <option value="Caieiras">Caieiras</option>
                                     <option value="Mogi das Cruzes">Mogi das Cruzes</option>
+                                    <option value="Piraí">Piraí</option>
                                 </select>
                             </div>
         
@@ -126,12 +126,21 @@
         
                             <div id="convidadosSection" class="d-none">
                                 <h4 class="mt-5">Seção 2 - Identifique os Convidados</h4>
+
+                                <div id="avisoMenor" class="alert alert-warning d-none mt-3">
+                                    Um dos convidados precisa ser maior de idade para acompanhar os dependentes.
+                                </div>
+    
+                                <div id="avisoNome" class="alert alert-danger d-none mt-3">
+                                    Preencha o nome do convidado antes de selecionar "Outra pessoa de confiança".
+                                </div>
+
+                                <div id="avisoMaiorQue15" class="alert alert-danger d-none mt-3">
+                                    Filhos(as) com mais de 15 anos não podem ser cadastrados(as) para este evento.
+                                </div>
+
                                 <div id="convidadosContainer"></div>
-                            </div>
-        
-                            <div id="avisoMenor" class="alert alert-warning d-none mt-3">
-                                Um dos convidados precisa ser maior de idade para acompanhar os dependentes.
-                            </div>
+                            </div>        
         
                             <div id="transporteCaieiras" class="d-none mt-4">
                                 <h5>Deslocamento - Caieiras</h5>
@@ -145,7 +154,7 @@
         
                             <div id="transportePirai" class="d-none mt-4">
                                 <h5>Deslocamento - Piraí</h5>
-                                <label class="form-label">Como será o seu deslocamento até a fábrica?</label>
+                                <label class="form-label">Como será o seu deslocamento até a fábrica? *Isso nos ajuda a organizar melhor a recepção e o transporte, caso necessário.</label>
                                 <select class="form-select" name="transporte_pirai" id="transporte_pirai">
                                     <option value="">Selecione...</option>
                                     <option value="Transporte público">Transporte público</option>
@@ -163,7 +172,6 @@
         
                                     <div id="rota1Detalhe" class="card d-none mb-3">
                                         <div class="card-body">
-                                            <h6 class="fw-bold">Rota 1 – Arrozal / Barra Mansa / Volta Redonda / Pinheiral</h6>
                                             <p><strong>Nome da Linha:</strong> Arrozal e BARRA MANSA X VOLTA REDONDA X PINHEIRAL X SOFTYS</p>
                                             <p><strong>Pontos de parada:</strong></p>
                                             <ul class="small">
@@ -185,7 +193,6 @@
         
                                     <div id="rota2Detalhe" class="card d-none">
                                         <div class="card-body">
-                                            <h6 class="fw-bold">Rota 2 – Barra do Piraí / Centro de Eventos Tutucão</h6>
                                             <p><strong>Nome da Linha:</strong> Barra do Piraí e CENTRO DE EVENTOS TUTUCÃO</p>
                                             <p><strong>Pontos de parada:</strong></p>
                                             <ul class="small">
@@ -198,14 +205,13 @@
                                                 <li>RJ-146 – Ponto da Casa Amarela</li>
                                                 <li>Piraí – Próximo ao Centro de Eventos Tutucão</li>
                                                 <li>Rua Bulhões de Carvalho – Lado Sacolão e Mercearia</li>
-                                                <li>Rodoviária de Piraí</li>
-                                                <li>Rua Saldanha Marinho, 87 – Próximo à passarela Jaqueira</li>
+                                                <li>Pirá - Rodoviária Piraí</li>
+                                                <li>Rua Saldanha Marinho, 87 – Ponto proximidades da placa de sinalização/Passarela Jaqueira</li>
                                                 <li>Rodovia Presidente Dutra – Restaurante</li>
                                                 <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
-                                                <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
-                                                <li>Piraí – Centro de Eventos de Piraí</li>
-                                                <li>Rua Vista Alegre – Brizolão - Casa Amarela</li>
-                                                <li>Rodoviária de Piraí (retorno)</li>
+                                                <li>Rua Vista Alegre - Brizolão - Casa Amarela</li>
+                                                <li>Rua Bulhões de Carvalho - Rodoviaria de Pirai</li>
+                                                <li>Rua Saldanha Marinho, 87 - Ponto proximidades da placa de sinalização/Passarela Jaqueira</li>
                                                 <li>Rodovia Presidente Dutra – Restaurante (retorno)</li>
                                                 <li>Rodovia Presidente Dutra – Ponto próximo à torre</li>
                                                 <li>Rua Tulipas – Bifurcação com Rua Eugênio</li>
@@ -312,12 +318,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12" data-aos="zoom-in" data-aos-duration="3000">
-                    <h1>FAQ</h1>
+                    <h1>PERGUNTAS FREQUENTES</h1>
                     <p>
                         Tem alguma dúvida? A gente te ajuda!
                     </p>
             
-                    <h6 class="mt-5">Perguntas Frequentes - Pode Entrar</h6>
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -489,33 +494,66 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>1. Público-Alvo</h6>
-                    <p>O evento é exclusivo para cônjuges e filhos de colaboradores da Softys, com idade entre 5 e 15 anos.</p>
+                    <div class="modal-body">
+                        <h6>1. Datas</h6>
+                        <p>
+                            O evento Pode Entrar 2025 acontecerá nas seguintes datas: 
+                            25 de novembro na fábrica de Piraí, 
+                            02 de dezembro na fábrica de Anápolis, 
+                            04 de dezembro na fábrica de Mogi das Cruzes e 
+                            12 de dezembro na fábrica de Caieiras.
+                        </p>
 
-                    <h6>2. Inscrição</h6>
-                    <p>A participação no evento depende de inscrição prévia obrigatória por meio do hotsite oficial.</p>
+                        <h6>2. Público-Alvo</h6>
+                        <p>
+                            O evento é exclusivo para cônjuges e filhos de colaboradores da Softys. 
+                            Para participação de filhos, será limitado ao público com idade entre 5 e 15 anos, sendo que:
+                        </p>
+                        <ul>
+                            <li>Colaboradores das áreas Comerciais e colaboradores que atuam na Vila Olímpia poderão escolher a unidade mais próxima de suas residências para participar;</li>
+                            <li>Para filhos que não forem acompanhados pelo responsável legal, durante a inscrição, você pode indicar uma pessoa de sua confiança que seja maior de idade para acompanhá-los.</li>
+                        </ul>
 
-                    <h6>3. Vestuário</h6>
-                    <p>É obrigatório o uso de calça, sapato fechado e camiseta/blusa que cubra os ombros.</p>
+                        <h6>3. Inscrição</h6>
+                        <p>A participação no evento depende de inscrição prévia obrigatória por meio do hotsite oficial.</p>
 
-                    <h6>4. Local e Conduta</h6>
-                    <p>O evento será realizado nas instalações das plantas da Softys. Todos os participantes devem seguir rigorosamente as orientações de segurança e conduta fornecidas pela organização.</p>
+                        <h6>4. Vestuário</h6>
+                        <p>É obrigatório o uso de calça, sapato fechado e camiseta/blusa que cubra os ombros.</p>
 
-                    <h6>5. Alterações na Programação</h6>
-                    <p>A Softys reserva-se o direito de alterar a programação do evento, caso necessário, garantindo sempre o bem-estar e a segurança de todos os participantes.</p>
+                        <h6>5. Local e Conduta</h6>
+                        <p>
+                            O evento será realizado nas instalações das plantas da Softys. 
+                            Todos os participantes devem seguir rigorosamente as orientações de segurança e conduta fornecidas pela organização.
+                        </p>
 
-                    <h6>Termos de Consentimento</h6>
-                    <ul>
-                        <li>Autorizo a empresa SOFTYS BRASIL LTDA, inscrita no CNPJ sob o n.º 44.145.845/0001-40, com sede na Rua Chedid Jafet, nº 222, conj. 11, Bloco C, 1º andar, Vila Olímpia, CEP 04551-065, São Paulo/SP (“Softys”), a utilizar os meus dados pessoais, incluindo nome, minha imagem, voz ou outros na ação "Pode entrar".</li>
-                        <li>Entendo que este consentimento é fornecido a título gratuito, isto é, não receberei qualquer pagamento, compensação ou outro tipo de remuneração.</li>
-                        <li>Concordo com o fato de que a Softys pode, a partir de agora ou a qualquer momento no futuro, retocar ou editar a Gravação, conforme necessário e a seu exclusivo critério.</li>
-                        <li>Entendo que a Gravação e o Material poderão ser lançados publicamente por meio do Facebook, Instagram, YouTube, LinkedIn, TV e outras mídias digitais, após o qual a Softys não será responsável pelo gerenciamento ou uso posterior, sobre os quais não detém poder de ingerência.</li>
-                        <li>Se você tiver qualquer dúvida ou solicitação em relação a este Termo de Consentimento, entre em contato com: <a href="mailto:juridico.brasil@softys.com">juridico.brasil@softys.com</a> e <a href="mailto:dpo.brasil@softys.com">dpo.brasil@softys.com</a></li>
-                        <li>No caso de ausência do responsável legal, o menor de idade será acompanhado por uma pessoa maior de idade, previamente autorizada pelos responsáveis legais. Os pais ou responsáveis legais declaram estar cientes e de acordo que qualquer incidente ou dano envolvendo o menor de idade será de integral responsabilidade dos próprios responsáveis legais e/ou do acompanhante autorizado. A Softys isenta-se de qualquer responsabilidade por danos, incidentes ou ocorrências que envolvam o menor de idade, tanto durante o acompanhamento por terceiros quanto durante a participação no programa.</li>
-                        <li>Por meio do presente instrumento, renuncio a qualquer direito de inspecionar ou aprovar a Gravação antes de seu uso.</li>
-                        <li>Concordo que a Gravação, bem como quaisquer fotografias, gravações de vídeo ou áudio criadas a partir da Gravação, devem permanecer como propriedade exclusiva da Softys.</li>
-                        <li>Compreendi que o Material objeto do presente formulário não envolverá conteúdo prejudicial, vexatório, ofensivo, danoso ou que de qualquer forma viole os direitos do(a) menor.</li>
-                    </ul>
+                        <h6>6. Alterações na Programação</h6>
+                        <p>
+                            A Softys reserva-se o direito de alterar a programação do evento, caso necessário, garantindo sempre o bem-estar e a segurança de todos os participantes.
+                        </p>
+
+                        <h6>Termos de Consentimento</h6>
+                        <ul>
+                            <li>(i) AUTORIZO a empresa SOFTYS BRASIL LTDA, inscrita no CNPJ sob o n.º 44.145.845/0001-40, com sede na Rua Chedid Jafet, nº 222, conj. 11, Bloco C, 1º andar, Vila Olímpia, CEP 04551-065, São Paulo/ SP (“Softys”), a utilizar os meus dados pessoais, incluindo nome, minha imagem, voz ou outros na ação "Pode entrar".</li>
+                            <li>(ii) Entendo que este consentimento é fornecido a título gratuito, isto é, não receberei qualquer pagamento, compensação ou outro tipo de remuneração.</li>
+                            <li>(iii) Concordo com o fato de que a Softys pode, a partir de agora ou a qualquer momento no futuro, retocar ou editar a Gravação, conforme necessário e a seu exclusivo critério.</li>
+                            <li>(iv) Entendo que a Gravação e o Material poderão ser lançados publicamente por meio do Facebook, Instagram, YouTube, LinkedIn, TV e outras mídias digitais após a publicação, sobre os quais a Softys não detém poder de ingerência.</li>
+                            <li>(v) Se você tiver qualquer dúvida ou solicitação em relação a este Termo de Consentimento, entre em contato com: <a href="mailto:juridico.brasil@softys.com">juridico.brasil@softys.com</a> e <a href="mailto:dpo.brasil@softys.com">dpo.brasil@softys.com</a>.</li>
+                            <li>(vi) No caso de ausência do responsável legal, o menor de idade será acompanhado por uma pessoa maior de idade, previamente autorizada pelos responsáveis legais. Os pais ou responsáveis legais declaram estar cientes e de acordo que qualquer incidente ou dano envolvendo o menor de idade será de integral responsabilidade dos próprios responsáveis legais e/ou do acompanhante autorizado. A Softys isenta-se de qualquer responsabilidade por danos, incidentes ou ocorrências que envolvam o menor de idade, tanto durante o acompanhamento por terceiros quanto durante a participação no programa.</li>
+                            <li>(vii) Entendo que a Gravação e o Material poderão ser lançados publicamente por meio das mídias citadas, sobre os quais a Softys não será responsável pelo gerenciamento ou uso posterior.</li>
+                            <li>(viii) Por meio do presente instrumento, renuncio a qualquer direito de inspecionar ou aprovar a Gravação antes de seu uso.</li>
+                            <li>(ix) Concordo que a Gravação, bem como quaisquer fotografias, gravações de vídeo ou áudio criadas a partir da Gravação, devem permanecer como propriedade exclusiva da Softys.</li>
+                            <li>(x) Compreendi que o Material objeto do presente formulário não envolverá conteúdo prejudicial, vexatório, ofensivo, danoso ou que de qualquer forma viole os direitos do(a) menor.</li>
+                        </ul>
+
+                        <h6>Responsabilidade dos pais ou responsáveis</h6>
+                        <p>
+                            É importante reforçar que os pais ou responsáveis legais são inteiramente responsáveis pela conduta de seus filhos durante o passeio. Espera-se que garantam o cumprimento integral das orientações e regras de segurança estabelecidas pela empresa.
+                        </p>
+                        <p>
+                            Qualquer comportamento que coloque em risco a integridade física de alguém ou o bom andamento da visita será comunicado imediatamente. 
+                            Caso situações de risco ou desrespeito às normas se repitam, o colaborador e seu(s) dependente(s) poderão ser convidados a encerrar a participação na atividade, uma vez que a segurança é um valor inegociável para a empresa.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -536,6 +574,21 @@
                         Os acompanhantes maiores de idade também receberão o documento em seus e-mails pessoais para assinatura.  
                         Isso condiciona a autorização de acesso ao evento.
                     </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successModalVolun" tabindex="-1" aria-labelledby="successModalVolunLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 mb-0" id="successModalVolunLabel">Inscrição Confirmada</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-2">🎉 <strong>SUA INSCRIÇÃO ESTÁ CONFIRMADA NO PODE ENTRAR!</strong></p>
+                    <p>Em breve você receberá orientações sobre o evento.</p>
                 </div>
             </div>
         </div>
@@ -602,17 +655,23 @@
             successModal.show();
         @endif
 
-        @if($errors->has('unidade'))
+        @if(session('successVolun'))
+            const successModalVolun = new bootstrap.Modal(document.getElementById('successModalVolun'));
+            successModalVolun.show();
+        @endif
+
+        @if($errors->has('unidade') && $errors->count() == 1)
             const limitModal = new bootstrap.Modal(document.getElementById('limitModal'));
             limitModal.show();
+        @elseif($errors->any() && !$errors->has('unidade'))
+            const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
+            validationModal.show();
         @endif
 
-        @if($errors->has('unit'))
+        @if($errors->has('unit') && $errors->count() == 1)
             const limitModalVolun = new bootstrap.Modal(document.getElementById('limitModalVolun'));
             limitModalVolun.show();
-        @endif
-
-        @if($errors->any())
+        @elseif($errors->any() && !$errors->has('unit'))
             const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
             validationModal.show();
         @endif

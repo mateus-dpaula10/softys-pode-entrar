@@ -56,7 +56,7 @@ function toggleUnidadeEscolhaComercial() {
     const dir = diretoriaSelect.value.toLowerCase();
     const uni = unidadeSelect.value.toLowerCase();
 
-    if (dir.includes('comercial') || uni === 'vila olímpia') {
+    if (dir.includes('comercial') && uni === 'vila olímpia') {
         unidadeEscolhaDiv.classList.remove('d-none');
     } else {
         unidadeEscolhaDiv.classList.add('d-none');
@@ -128,7 +128,15 @@ dependentesInput.addEventListener('input', function () {
             rg: card.querySelector(`[name="convidados[${index}][rg]"]`)?.value || '',
             parentesco: card.querySelector(`[name="convidados[${index}][parentesco]"]`)?.value || '',
             email: card.querySelector(`[name="convidados[${index}][email]"]`)?.value || '',
-            autorizacao: card.querySelector(`[name="convidados[${index}][autorizacao]"]`)?.value || ''
+            aut_nome_responsavel: card.querySelector(`[name="convidados[${index}][aut_nome_responsavel]"]`)?.value || '',
+            aut_cpf_responsavel: card.querySelector(`[name="convidados[${index}][aut_cpf_responsavel]"]`)?.value || '',
+            aut_rg_responsavel: card.querySelector(`[name="convidados[${index}][aut_rg_responsavel]"]`)?.value || '',
+            aut_nome_menor: card.querySelector(`[name="convidados[${index}][aut_nome_menor]"]`)?.value || '',
+            aut_data_menor: card.querySelector(`[name="convidados[${index}][aut_data_menor]"]`)?.value || '',
+            aut_nome_acomp: card.querySelector(`[name="convidados[${index}][aut_nome_acomp]"]`)?.value || '',
+            aut_cpf_acomp: card.querySelector(`[name="convidados[${index}][aut_cpf_acomp]"]`)?.value || '',
+            aut_rg_acomp: card.querySelector(`[name="convidados[${index}][aut_rg_acomp]"]`)?.value || '',
+            aut_parentesco: card.querySelector(`[name="convidados[${index}][aut_parentesco]"]`)?.value || ''
         };
     });
 
@@ -164,7 +172,7 @@ dependentesInput.addEventListener('input', function () {
                                 <option value="filho(a)" ${dados.parentesco === 'filho(a)' ? 'selected' : ''}>Filho(a)</option>
                                 <option value="cônjuge" ${dados.parentesco === 'cônjuge' ? 'selected' : ''}>Cônjuge</option>
                                 <option value="responsável legal" ${dados.parentesco === 'responsável legal' ? 'selected' : ''}>Responsável legal</option>
-                                <option value="outra pessoa de confiança" ${dados.parentesco === 'outra pessoa de confiança' ? 'selected' : ''}>Outra pessoa de confiança</option>
+                                <option value="(participação permitida apenas se for acompanhar filho(a) menor de idade)" ${dados.parentesco === '(participação permitida apenas se for acompanhar filho(a) menor de idade)' ? 'selected' : ''}>(Participação permitida apenas se for acompanhar filho(a) menor de idade)</option>
                             </select>
                         </div>
                         <div class="extraFields mt-3" id="extra_${i}">
@@ -239,7 +247,7 @@ function handleBirthChange(e) {
                 <option value="filho(a)">Filho(a)</option>
                 <option value="cônjuge">Cônjuge</option>
                 <option value="responsável legal">Responsável legal</option>
-                <option value="outra pessoa de confiança">Outra pessoa de confiança</option>
+                <option value="(participação permitida apenas se for acompanhar filho(a) menor de idade)">(Participação permitida apenas se for acompanhar filho(a) menor de idade)</option>
             `;
             
             if (!existingEmail) {
@@ -267,15 +275,54 @@ function handleParentescoChange(e) {
     const extraDiv = document.getElementById(`extra_${index}`);
     const nomeInput = document.getElementById(`convidado_nome_${index}`);
     const existingAuth = document.getElementById(`autorizacao_${index}`);
+    const avisoNome = document.getElementById('avisoNome');
 
-    if (e.target.value === 'outra pessoa de confiança') {
+    avisoNome.classList.add('d-none');
+
+    if (e.target.value === '(participação permitida apenas se for acompanhar filho(a) menor de idade)') {
+        if (!nomeInput.value.trim()) {
+            e.target.value = '';
+            nomeInput.focus();
+            avisoNome.classList.remove('d-none');
+            return;
+        }
+
         if (!existingAuth) {
             extraDiv.insertAdjacentHTML('beforeend', `
                 <div class="mt-2" id="autorizacao_${index}">
-                    <label class="form-label">Autorização</label>
-                    <textarea class="form-control" rows="3" name="convidados[${index}][autorizacao]" readonly>
-                        Autorizo ${nomeInput.value || '________________'} a acompanhar meu(s) dependente(s) menor(es) de idade no evento.
-                    </textarea>
+                    <label class="form-label fw-semibold d-block mb-2">
+                        Autorização de acompanhamento de menor
+                    </label>
+                    <div class="border rounded p-3 bg-light">
+                        <p>
+                            Eu, 
+                            <input type="text" name="convidados[${index}][aut_nome_responsavel]" class="form-control d-inline w-auto" placeholder="Nome do responsável" required>,
+                            portador(a) do CPF nº 
+                            <input type="text" name="convidados[${index}][aut_cpf_responsavel]" class="form-control d-inline w-auto maskCPF" placeholder="000.000.000-00" required>
+                            e RG nº 
+                            <input type="text" name="convidados[${index}][aut_rg_responsavel]" class="form-control d-inline w-auto maskRG" placeholder="XXXXXXXXX" required>,
+                            na qualidade de responsável legal pelo(a) menor 
+                            <input type="text" name="convidados[${index}][aut_nome_menor]" class="form-control d-inline w-auto" placeholder="Nome do menor" required>,
+                            nascido(a) em 
+                            <input type="date" name="convidados[${index}][aut_data_menor]" class="form-control d-inline w-auto" required>,
+                            autorizo que o(a) Sr.(a) 
+                            <input type="text" name="convidados[${index}][aut_nome_acomp]" class="form-control d-inline w-auto" placeholder="Nome do acompanhante" required>,
+                            portador(a) do CPF nº 
+                            <input type="text" name="convidados[${index}][aut_cpf_acomp]" class="form-control d-inline w-auto maskCPF" placeholder="000.000.000-00" required>,
+                            RG nº 
+                            <input type="text" name="convidados[${index}][aut_rg_acomp]" class="form-control d-inline w-auto maskRG" placeholder="XXXXXXXXX" required>,
+                            e que mantém a relação de 
+                            <input type="text" name="convidados[${index}][aut_parentesco]" class="form-control d-inline w-auto" placeholder="Ex: tio, primo, amigo" required>,
+                            acompanhe o menor durante o evento promovido pela empresa <strong>"Pode Entrar"</strong>.
+                        </p>
+
+                        <p class="mt-3 mb-1">Declaro estar ciente de que:</p>
+                        <ol class="small mb-0">
+                            <li>A responsabilidade pela conduta do menor permanece sob minha inteira responsabilidade;</li>
+                            <li>O acompanhante designado deverá zelar pela segurança, bem-estar e cumprimento das regras do evento;</li>
+                            <li>Em caso de qualquer situação que coloque em risco a integridade do menor ou de terceiros, a empresa poderá determinar a retirada imediata do participante, sem prejuízo de outras medidas cabíveis.</li>
+                        </ol>
+                    </div>
                 </div>
             `);
         }
@@ -287,24 +334,42 @@ function handleParentescoChange(e) {
 function checkMaiorIdade() {
     const nascimentosInputs = document.querySelectorAll('.nascimento');
     const avisoMenor = document.getElementById('avisoMenor');
+    const avisoMaiorQue15 = document.getElementById('avisoMaiorQue15');
 
     if (nascimentosInputs.length === 0) {
         avisoMenor.classList.add('d-none');
+        avisoMaiorQue15.classList.add('d-none');
         btnSubmitColaboradores.disabled = false;
         return;
     }
 
     let temMaior = false;
+    let temMaiorQue15 = false;
+    let temAlgumPreenchido = false;
 
     nascimentosInputs.forEach(input => {
-        const dataNasc = new Date(input.value);
-        if (!isNaN(dataNasc)) {
-            const idade = calcIdade(dataNasc);
-            if (idade >= 18) temMaior = true;            
+        if (input.value) {
+            temAlgumPreenchido = true;
+
+            const dataNasc = new Date(input.value);
+            if (!isNaN(dataNasc)) {
+                const idade = calcIdade(dataNasc);
+                
+                if (idade >= 18) temMaior = true;            
+                if (idade > 15 && idade < 18) temMaiorQue15 = true;            
+            }            
         }
     });
 
-    if (!temMaior) {
+    if (temMaiorQue15) {
+        avisoMaiorQue15.classList.remove('d-none');
+        btnSubmitColaboradores.disabled = true;
+        return;
+    } else {
+        avisoMaiorQue15.classList.add('d-none');
+    }
+
+    if (temAlgumPreenchido && !temMaior) {
         avisoMenor.classList.remove('d-none');
         btnSubmitColaboradores.disabled = true;
     } else {
