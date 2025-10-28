@@ -91,6 +91,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <a href="{{ route('export.colaboradores') }}" class="btn btn-primary">Exportar Colaboradores</a>
+                                <a href="{{ route('export.voluntarios') }}" class="btn btn-success">Exportar Voluntários</a>
+                                <a href="{{ route('export.dependentes') }}" class="btn btn-warning text-white">Exportar Dependentes</a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

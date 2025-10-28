@@ -43,6 +43,7 @@ inputTel.forEach(i => {
 // formulario inscricoes colaboradores
 const unidadeSelect = document.getElementById('unidade');
 const diretoriaSelect = document.getElementById('diretoria');
+const unidadeEscolhaDivVO = document.getElementById('unidadeEscolhaComercialVO');
 const unidadeEscolhaDiv = document.getElementById('unidadeEscolhaComercial');
 const transporteCaieirasDiv = document.getElementById('transporteCaieiras');
 const transportePiraiDiv = document.getElementById('transportePirai');
@@ -56,29 +57,70 @@ function toggleUnidadeEscolhaComercial() {
     const dir = diretoriaSelect.value.toLowerCase();
     const uni = unidadeSelect.value.toLowerCase();
 
-    if (dir.includes('comercial') && uni === 'vila olímpia') {
+    unidadeEscolhaDiv?.classList.add('d-none');
+    unidadeEscolhaDivVO?.classList.add('d-none');
+
+    const selectInterno = unidadeEscolhaDiv?.querySelector('select');
+    if (selectInterno) selectInterno.value = '';
+
+    const selectCVO = unidadeEscolhaDivVO?.querySelector('select');
+    if (selectCVO) selectCVO.value = '';
+
+    const isComercial = dir.includes('comercial');
+    const isVilaOlimpia = uni === 'vila olímpia' || uni === 'vila olimpia';
+
+    if (isComercial && isVilaOlimpia) {
         unidadeEscolhaDiv.classList.remove('d-none');
-    } else {
-        unidadeEscolhaDiv.classList.add('d-none');
-        const selectInterno = unidadeEscolhaDiv.querySelector('select');
-        if (selectInterno) selectInterno.value = '';
+    } else if (isComercial) {
+        unidadeEscolhaDiv.classList.remove('d-none');
+    } else if (isVilaOlimpia) {
+        unidadeEscolhaDivVO?.classList.remove('d-none');
     }
 
     if (uni === 'caieiras') {
         transporteCaieirasDiv?.classList.remove('d-none');
+        const selectC = transporteCaieirasDiv?.querySelector('select');
+        if (selectC) selectC.required = true;
     } else {
         transporteCaieirasDiv?.classList.add('d-none');
         const selectC = transporteCaieirasDiv?.querySelector('select');
-        if (selectC) selectC.value = '';
+        if (selectC) {
+            selectC.required = false;
+            selectC.value = '';
+        } 
     }
 
     if (uni === 'piraí') {
         transportePiraiDiv?.classList.remove('d-none');
+        if (transportePiraiSelect) {
+            transportePiraiSelect.required = true;
+
+            transportePiraiSelect.addEventListener('change', function () {
+                if (transportePiraiSelect.value === 'Fretado Softys') {
+                    rotasPiraiDiv.classList.remove('d-none');
+                    if (rotaPiraiSelect) rotaPiraiSelect.required = true;
+                } else {
+                    rotasPiraiDiv.classList.add('d-none');
+                    if (rotaPiraiSelect) {
+                        rotaPiraiSelect.required = false;
+                        rotaPiraiSelect.value = '';
+                    }
+                    rota1Detalhe.classList.add('d-none');
+                    rota2Detalhe.classList.add('d-none');
+                }
+            });
+        }
     } else {
         transportePiraiDiv?.classList.add('d-none');
-        if (transportePiraiSelect) transportePiraiSelect.value = '';
+        if (transportePiraiSelect) {
+            transportePiraiSelect.required = false;
+            transportePiraiSelect.value = '';
+        } 
         rotasPiraiDiv?.classList.add('d-none');
-        rotaPiraiSelect && (rotaPiraiSelect.value = '');
+        if (rotaPiraiSelect) {
+            rotaPiraiSelect.required = false;
+            rotaPiraiSelect.value = '';
+        }
         rota1Detalhe?.classList.add('d-none');
         rota2Detalhe?.classList.add('d-none');
     }
@@ -86,17 +128,6 @@ function toggleUnidadeEscolhaComercial() {
 
 unidadeSelect.addEventListener('change', toggleUnidadeEscolhaComercial);
 diretoriaSelect.addEventListener('change', toggleUnidadeEscolhaComercial);
-
-transportePiraiSelect?.addEventListener('change', function () {
-    if (transportePiraiSelect.value === 'Fretado Softys') {
-        rotasPiraiDiv.classList.remove('d-none');
-    } else {
-        rotasPiraiDiv.classList.add('d-none');
-        rotaPiraiSelect && (rotaPiraiSelect.value = '');
-        rota1Detalhe.classList.add('d-none');
-        rota2Detalhe.classList.add('d-none');
-    }
-});
 
 rotaPiraiSelect?.addEventListener('change', () => {
     rota1Detalhe.classList.add('d-none');
@@ -172,7 +203,7 @@ dependentesInput.addEventListener('input', function () {
                                 <option value="filho(a)" ${dados.parentesco === 'filho(a)' ? 'selected' : ''}>Filho(a)</option>
                                 <option value="cônjuge" ${dados.parentesco === 'cônjuge' ? 'selected' : ''}>Cônjuge</option>
                                 <option value="responsável legal" ${dados.parentesco === 'responsável legal' ? 'selected' : ''}>Responsável legal</option>
-                                <option value="(participação permitida apenas se for acompanhar filho(a) menor de idade)" ${dados.parentesco === '(participação permitida apenas se for acompanhar filho(a) menor de idade)' ? 'selected' : ''}>(Participação permitida apenas se for acompanhar filho(a) menor de idade)</option>
+                                <option value="outra pessoa de confiança - (participação permitida apenas se for acompanhar filho(a) menor de idade)" ${dados.parentesco === 'outra pessoa de confiança - (participação permitida apenas se for acompanhar filho(a) menor de idade)' ? 'selected' : ''}>Outra pessoa de confiança - (participação permitida apenas se for acompanhar filho(a) menor de idade)</option>
                             </select>
                         </div>
                         <div class="extraFields mt-3" id="extra_${i}">
@@ -238,36 +269,39 @@ function handleBirthChange(e) {
     const emailFieldId = `email_convidado_${index}`;
     const existingEmail = document.getElementById(emailFieldId);
 
-    if (!isNaN(dataNasc)) {
-        const idade = calcIdade(dataNasc);
-        
-        if (idade >= 18) {
-            parentescoSelect.innerHTML = `
-                <option value="">Selecione...</option>
-                <option value="filho(a)">Filho(a)</option>
-                <option value="cônjuge">Cônjuge</option>
-                <option value="responsável legal">Responsável legal</option>
-                <option value="(participação permitida apenas se for acompanhar filho(a) menor de idade)">(Participação permitida apenas se for acompanhar filho(a) menor de idade)</option>
-            `;
-            
-            if (!existingEmail) {
-                extraDiv.insertAdjacentHTML('beforeend', `
-                    <div class="mt-2" id="emailWrapper_${index}">
-                        <label class="form-label">E-mail pessoal do convidado (maior de idade)</label>
-                        <input type="email" class="form-control" name="convidados[${index}][email]" id="${emailFieldId}" placeholder="email@exemplo.com" required>
-                    </div>
-                `);
-            }
-        } else {
-            if (existingEmail) existingEmail.closest('.mt-2').remove();
-            parentescoSelect.innerHTML = `<option value="filho(a)" selected>Filho(a)</option>`;
+    if (isNaN(dataNasc)) return;
 
-            const existingAuth = document.getElementById(`autorizacao_${index}`);
-            if (existingAuth) existingAuth.remove();
-        }
-        
-        checkMaiorIdade();
+    const idade = calcIdade(dataNasc);
+
+    if (existingEmail) existingEmail.closest('.mt-2').remove();
+    const existingAuth = document.getElementById(`autorizacao_${index}`);
+    if (existingAuth) existingAuth.remove();    
+    
+    parentescoSelect.innerHTML = `<option value="">Selecione...</option>`;
+
+    if (idade >= 18) {
+        parentescoSelect.insertAdjacentHTML('beforeend', `
+            <option value="cônjuge">Cônjuge</option>
+            <option value="responsável legal">Responsável legal</option>
+            <option value="outra pessoa de confiança - (participação permitida apenas se for acompanhar filho(a) menor de idade)">
+                Outra pessoa de confiança - (participação permitida apenas se for acompanhar filho(a) menor de idade)
+            </option>
+        `);
+
+        extraDiv.insertAdjacentHTML('beforeend', `
+            <div class="mt-2" id="emailWrapper_${index}">
+                <label class="form-label">E-mail pessoal do convidado (maior de idade)</label>
+                <input type="email" class="form-control" name="convidados[${index}][email]" 
+                    id="${emailFieldId}" placeholder="email@exemplo.com" required>
+            </div>
+        `);
+    } else if (idade <= 15) {
+        parentescoSelect.innerHTML = `<option value="filho(a)" selected>Filho(a)</option>`;
+    } else {
+        parentescoSelect.innerHTML = `<option value="">Idade entre 16 e 17 não permitida</option>`;
     }
+    
+    checkMaiorIdade();
 }
 
 function handleParentescoChange(e) {
@@ -279,7 +313,7 @@ function handleParentescoChange(e) {
 
     avisoNome.classList.add('d-none');
 
-    if (e.target.value === '(participação permitida apenas se for acompanhar filho(a) menor de idade)') {
+    if (e.target.value === 'outra pessoa de confiança - (participação permitida apenas se for acompanhar filho(a) menor de idade)') {
         if (!nomeInput.value.trim()) {
             e.target.value = '';
             nomeInput.focus();

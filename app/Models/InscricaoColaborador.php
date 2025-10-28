@@ -13,7 +13,7 @@ class InscricaoColaborador extends Model
 
     protected $fillable = [
         'nome', 'email', 'telefone', 'unidade', 'diretoria',
-        'unidade_escolha_comercial', 'transporte_caieiras',
+        'unidade_escolha_comercial', 'unidade_escolha_comercial_vo', 'transporte_caieiras',
         'transporte_pirai', 'rota_pirai'
     ];
 

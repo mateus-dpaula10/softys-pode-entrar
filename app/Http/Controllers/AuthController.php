@@ -49,6 +49,37 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
+    private function unidadeContabilizada($unidade, $diretoria, $unidadeEscolhaComercial, $unidadeEscolhaComercialVO)
+    {
+        $unidadeLower = strtolower($unidade);
+        $diretoriaLower = strtolower($diretoria);
+
+        $isComercial = str_contains($diretoriaLower, 'comercial');
+        $isVilaOlimpia = $unidadeLower === 'vila olímpia' || $unidadeLower === 'vila olimpia';
+
+        if ($isComercial && $isVilaOlimpia && $unidadeEscolhaComercialVO) {
+            return $unidadeEscolhaComercialVO;
+        } elseif ($isComercial && $unidadeEscolhaComercial) {
+            return $unidadeEscolhaComercial;
+        } elseif ($isVilaOlimpia && $unidadeEscolhaComercialVO) {
+            return $unidadeEscolhaComercialVO;
+        }
+
+        return $unidade;
+    }
+
+    private function unidadeContabilizadaVoluntario($unit, $supportUnit)
+    {
+        $unitLower = strtolower($unit);
+        $supportUnitLower = strtolower($supportUnit ?? '');
+
+        if (!empty($supportUnitLower)) {
+            return $supportUnit;
+        }
+
+        return $unit;
+    }
+
     public function dashboard(Request $request)
     {
         $search = $request->input('search');
@@ -57,7 +88,12 @@ class AuthController extends Controller
             ->when($search, fn($q) => $q->where('unidade', 'LIKE', "%{$search}%"))  
             ->get()
             ->map(function ($item) {
-                $item->unidade_contabilizada = $item->unidade_escolha_comercial ?: $item->unidade;
+                $item->unidade_contabilizada = $this->unidadeContabilizada(
+                    $item->unidade,
+                    $item->diretoria,
+                    $item->unidade_escolha_comercial,
+                    $item->unidade_escolha_comercial_vo
+                );
                 $item->unidade_original = $item->unidade;
                 return $item;
             })
@@ -66,7 +102,8 @@ class AuthController extends Controller
                 'unidade_original' => $group->first()->unidade_original,
                 'unidade_contabilizada' => $group->first()->unidade_contabilizada,
                 'total' => $group->count()
-            ]);
+            ])
+            ->sortBy('unidade_contabilizada');
 
         $colaboradores = new LengthAwarePaginator(
             $colaboradoresCollection->forPage($request->input('colab_page', 1), 10),
@@ -80,7 +117,10 @@ class AuthController extends Controller
             ->when($search, fn($q) => $q->where('unit', 'LIKE', "%{$search}%"))
             ->get()
             ->map(function ($item) {
-                $item->unidade_contabilizada = $item->support_unit ?: $item->unit;                
+                $item->unidade_contabilizada = $this->unidadeContabilizadaVoluntario(
+                    $item->unit,
+                    $item->support_unit
+                );
                 $item->unidade_original = $item->unit;                
                 return $item;
             })
@@ -89,7 +129,8 @@ class AuthController extends Controller
                 'unidade_original' => $group->first()->unidade_original,
                 'unidade_contabilizada' => $group->first()->unidade_contabilizada,
                 'total' => $group->count()
-            ]);
+            ])
+            ->sortBy('unidade_contabilizada');
 
         $voluntarios = new LengthAwarePaginator(
             $voluntariosCollection->forPage($request->input('volun_page', 1), 10),

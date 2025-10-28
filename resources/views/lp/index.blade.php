@@ -23,7 +23,7 @@
                     </ul>                        
                 </div>
 
-                <div class="col-12 col-lg-7 mt-3 mt-lg-0">
+                <div class="col-12 col-lg-8 mt-3 mt-lg-0">
                     <figure>
                         <img src="{{ asset('img/images/Criativo-Hotsite.png') }}" alt="Imagem com unidades, datas e horário" class="img-fluid">
                     </figure>
@@ -96,12 +96,29 @@
                                     <option value="Financeiro, Adm. e TI">Financeiro, Adm. e TI</option>
                                     <option value="Operações">Operações</option>
                                     <option value="Supply Chain">Supply Chain</option>
+                                    <option value="Marketing">Marketing</option>
                                 </select>
                             </div>
         
+                            <div id="unidadeEscolhaComercialVO" class="mb-3 d-none">
+                                <p>
+                                    Você, colaborador(a) da Vila Olímpia e/ou do Comercial, tem a oportunidade de inscrever seus dependentes para 
+                                    participar do evento na fábrica mais próxima de sua residência.    
+                                </p>
+                                <p class="fw-semibold">
+                                    Atenção! O deslocamento é de responsabilidade do próprio colaborador. 
+                                </p>
+                                <label class="form-label">Qual unidade você escolhe?</label>
+                                <select class="form-select" name="unidade_escolha_comercial_vo">
+                                    <option value="">Selecione...</option>
+                                    <option value="Caieiras">Caieiras</option>
+                                    <option value="Mogi das Cruzes">Mogi das Cruzes</option>
+                                </select>
+                            </div>
+
                             <div id="unidadeEscolhaComercial" class="mb-3 d-none">
                                 <p>
-                                    Você, colaborador(a) do Comercial ou da Vila Olímpia, tem a oportunidade de inscrever seus dependentes para 
+                                    Você, colaborador(a) da Vila Olímpia e/ou do Comercial, tem a oportunidade de inscrever seus dependentes para 
                                     participar do evento na fábrica mais próxima de sua residência.    
                                 </p>
                                 <p class="fw-semibold">
@@ -132,7 +149,7 @@
                                 </div>
     
                                 <div id="avisoNome" class="alert alert-danger d-none mt-3">
-                                    Preencha o nome do convidado antes de selecionar "Outra pessoa de confiança".
+                                    Preencha o nome do convidado antes de selecionar "Outra pessoa de confiança - (participação permitida apenas se for acompanhar filho(a) menor de idade)".
                                 </div>
 
                                 <div id="avisoMaiorQue15" class="alert alert-danger d-none mt-3">
@@ -193,7 +210,7 @@
         
                                     <div id="rota2Detalhe" class="card d-none">
                                         <div class="card-body">
-                                            <p><strong>Nome da Linha:</strong> Barra do Piraí e CENTRO DE EVENTOS TUTUCÃO</p>
+                                            <p><strong>Nome da Linha:</strong> Barra do Piraí/ Piraí - Centro de Eventos</p>
                                             <p><strong>Pontos de parada:</strong></p>
                                             <ul class="small">
                                                 <li>Praça Nilo Peçanha – Em frente à Igreja São Benedito</li>
@@ -476,7 +493,8 @@
                             </h2>
                             <div id="flush-collapseThirty" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">
-                                    O colaborador só pode acompanhar o menor de idade, caso estiver de férias ou folga.
+                                    A participação dos colaboradores é restrita aos casos em que estejam acompanhando dependentes menores de idade 
+                                    e desde que estejam de folga ou em período de férias.
                                 </div>
                             </div>
                         </div>
@@ -660,20 +678,16 @@
             successModalVolun.show();
         @endif
 
-        @if($errors->has('unidade') && $errors->count() == 1)
-            const limitModal = new bootstrap.Modal(document.getElementById('limitModal'));
-            limitModal.show();
-        @elseif($errors->any() && !$errors->has('unidade'))
-            const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
-            validationModal.show();
+        @if($errors->has('unidade'))
+            new bootstrap.Modal(document.getElementById('limitModal')).show();
         @endif
 
-        @if($errors->has('unit') && $errors->count() == 1)
-            const limitModalVolun = new bootstrap.Modal(document.getElementById('limitModalVolun'));
-            limitModalVolun.show();
-        @elseif($errors->any() && !$errors->has('unit'))
-            const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
-            validationModal.show();
+        @if($errors->has('unit'))
+            new bootstrap.Modal(document.getElementById('limitModalVolun')).show();
+        @endif
+
+        @if($errors->any() && !$errors->has('unidade') && !$errors->has('unit'))
+            new bootstrap.Modal(document.getElementById('validationModal')).show();
         @endif
 
         const form = document.getElementById('forms_colaboradores');

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('unidade');
             $table->string('diretoria');
             $table->string('unidade_escolha_comercial')->nullable();
+            $table->string('unidade_escolha_comercial_vo')->nullable();
             $table->string('transporte_caieiras')->nullable();
             $table->string('transporte_pirai')->nullable();
             $table->string('rota_pirai')->nullable();

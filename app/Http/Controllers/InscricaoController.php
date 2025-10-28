@@ -21,6 +21,7 @@ class InscricaoController extends Controller
             'unidade' => 'required|string',
             'diretoria' => 'required|string',
             'unidade_escolha_comercial' => 'nullable|string',
+            'unidade_escolha_comercial_vo' => 'nullable|string',
             'transporte_caieiras' => 'nullable|string',
             'transporte_pirai' => 'nullable|string',
             'rota_pirai' => 'nullable|string',
@@ -48,21 +49,31 @@ class InscricaoController extends Controller
 
         $unidadeParaContagem = $request->unidade;
 
-        if (
-            $request->unidade === 'Vila Olímpia' || 
-            str_contains(strtolower($request->diretoria), 'comercial')
-        ) {
+        $unidade = strtolower($request->unidade);
+        $diretoria = strtolower($request->diretoria);
+        $isComercial = str_contains($diretoria, 'comercial');
+        $isVilaOlimpia = $unidade === 'vila olímpia' || $unidade === 'vila olimpia';
+
+        if ($isComercial && $isVilaOlimpia) {
             if ($request->filled('unidade_escolha_comercial')) {
                 $unidadeParaContagem = $request->unidade_escolha_comercial;
             }
+        } elseif ($isComercial) {
+            if ($request->filled('unidade_escolha_comercial')) {
+                $unidadeParaContagem = $request->unidade_escolha_comercial;
+            }
+        } elseif ($isVilaOlimpia) {
+            if ($request->filled('unidade_escolha_comercial_vo')) {
+                $unidadeParaContagem = $request->unidade_escolha_comercial_vo;
+            }
         }
 
-        $totalUnidade = InscricaoColaborador::where(function ($query) use ($request, $unidadeParaContagem) {
-            if (
-                $request->unidade === 'Vila Olímpia' ||
-                str_contains(strtolower($request->diretoria), 'comercial')
-            ) {
-                $query->where('unidade_escolha_comercial', $unidadeParaContagem);
+        $totalUnidade = InscricaoColaborador::where(function ($query) use ($unidadeParaContagem, $isComercial, $isVilaOlimpia) {
+            if ($isComercial || $isVilaOlimpia) {
+                $query->where(function ($q) use ($unidadeParaContagem) {
+                    $q->where('unidade_escolha_comercial', $unidadeParaContagem)
+                    ->orWhere('unidade_escolha_comercial_vo', $unidadeParaContagem);
+                });
             } else {
                 $query->where('unidade', $unidadeParaContagem);
             }
@@ -81,6 +92,7 @@ class InscricaoController extends Controller
             'unidade' => $request->unidade,
             'diretoria' => $request->diretoria,
             'unidade_escolha_comercial' => $request->unidade_escolha_comercial,
+            'unidade_escolha_comercial_vo' => $request->unidade_escolha_comercial_vo,
             'transporte_caieiras' => $request->transporte_caieiras,
             'transporte_pirai' => $request->transporte_pirai,
             'rota_pirai' => $request->rota_pirai
