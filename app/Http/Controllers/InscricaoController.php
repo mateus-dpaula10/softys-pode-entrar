@@ -54,26 +54,22 @@ class InscricaoController extends Controller
         $isComercial = str_contains($diretoria, 'comercial');
         $isVilaOlimpia = $unidade === 'vila olímpia' || $unidade === 'vila olimpia';
 
-        if ($isComercial && $request->filled('unidade_escolha_comercial')) {
-            $unidadeParaContagem = $request->unidade_escolha_comercial;
-        } elseif ($isVilaOlimpia && $request->filled('unidade_escolha_comercial_vo')) {
-            $unidadeParaContagem = $request->unidade_escolha_comercial_vo;
+        if ($isComercial) {
+            $unidadeParaContagem = $request->unidade_escolha_comercial ?: $request->unidade;
+        } elseif ($isVilaOlimpia) {
+            $unidadeParaContagem = $request->unidade_escolha_comercial_vo ?: $request->unidade;
+        } else {
+            $unidadeParaContagem = $request->unidade;
         }
-
-        $colaboradores = InscricaoColaborador::withCount('dependentes')
-            ->where(function ($query) use ($unidadeParaContagem, $isComercial, $isVilaOlimpia) {
-                if ($isComercial || $isVilaOlimpia) {
-                    $query->where(function ($q) use ($unidadeParaContagem) {
-                        $q->where('unidade_escolha_comercial', $unidadeParaContagem)
-                        ->orWhere('unidade_escolha_comercial_vo', $unidadeParaContagem);
-                    });
-                } else {
-                    $query->where('unidade', $unidadeParaContagem);
-                }
+        
+        $totalUnidade = InscricaoColaborador::withCount('dependentes')
+            ->where(function($q) use ($unidadeParaContagem) {
+                $q->where('unidade_escolha_comercial', $unidadeParaContagem)
+                ->orWhere('unidade_escolha_comercial_vo', $unidadeParaContagem)
+                ->orWhere('unidade', $unidadeParaContagem);
             })
-            ->get();
-
-        $totalUnidade = $colaboradores->sum(fn($colab) => 1 + $colab->dependentes_count);
+            ->get()
+            ->sum(fn($colab) => 1 + $colab->dependentes_count);
 
         $dependentesNovos = $request->has('convidados') ? count($request->convidados) : 0;
         $totalAposInclusao = $totalUnidade + 1 + $dependentesNovos;
