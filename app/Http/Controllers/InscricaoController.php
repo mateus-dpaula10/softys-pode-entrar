@@ -54,34 +54,33 @@ class InscricaoController extends Controller
         $isComercial = str_contains($diretoria, 'comercial');
         $isVilaOlimpia = $unidade === 'vila olímpia' || $unidade === 'vila olimpia';
 
-        if ($isComercial && $isVilaOlimpia) {
-            if ($request->filled('unidade_escolha_comercial')) {
-                $unidadeParaContagem = $request->unidade_escolha_comercial;
-            }
-        } elseif ($isComercial) {
-            if ($request->filled('unidade_escolha_comercial')) {
-                $unidadeParaContagem = $request->unidade_escolha_comercial;
-            }
-        } elseif ($isVilaOlimpia) {
-            if ($request->filled('unidade_escolha_comercial_vo')) {
-                $unidadeParaContagem = $request->unidade_escolha_comercial_vo;
-            }
+        if ($isComercial && $request->filled('unidade_escolha_comercial')) {
+            $unidadeParaContagem = $request->unidade_escolha_comercial;
+        } elseif ($isVilaOlimpia && $request->filled('unidade_escolha_comercial_vo')) {
+            $unidadeParaContagem = $request->unidade_escolha_comercial_vo;
         }
 
-        $totalUnidade = InscricaoColaborador::where(function ($query) use ($unidadeParaContagem, $isComercial, $isVilaOlimpia) {
-            if ($isComercial || $isVilaOlimpia) {
-                $query->where(function ($q) use ($unidadeParaContagem) {
-                    $q->where('unidade_escolha_comercial', $unidadeParaContagem)
-                    ->orWhere('unidade_escolha_comercial_vo', $unidadeParaContagem);
-                });
-            } else {
-                $query->where('unidade', $unidadeParaContagem);
-            }
-        })->count();
+        $colaboradores = InscricaoColaborador::withCount('dependentes')
+            ->where(function ($query) use ($unidadeParaContagem, $isComercial, $isVilaOlimpia) {
+                if ($isComercial || $isVilaOlimpia) {
+                    $query->where(function ($q) use ($unidadeParaContagem) {
+                        $q->where('unidade_escolha_comercial', $unidadeParaContagem)
+                        ->orWhere('unidade_escolha_comercial_vo', $unidadeParaContagem);
+                    });
+                } else {
+                    $query->where('unidade', $unidadeParaContagem);
+                }
+            })
+            ->get();
 
-        if ($totalUnidade >= 135) {
+        $totalUnidade = $colaboradores->sum(fn($colab) => 1 + $colab->dependentes_count);
+
+        $dependentesNovos = $request->has('convidados') ? count($request->convidados) : 0;
+        $totalAposInclusao = $totalUnidade + 1 + $dependentesNovos;
+
+        if ($totalAposInclusao >= 135) {
             return redirect()->back()->withErrors([
-                'unidade' => "O limite de 135 inscrições para {$unidadeParaContagem} já foi atingido."
+                'unidade' => "O limite de 135 participantes (colaboradores + dependentes) para {$unidadeParaContagem} já foi atingido."
             ])->withInput();
         }
 

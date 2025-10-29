@@ -85,6 +85,7 @@ class AuthController extends Controller
         $search = $request->input('search');
 
         $colaboradoresCollection = InscricaoColaborador::query()
+            ->withCount('dependentes')
             ->when($search, fn($q) => $q->where('unidade', 'LIKE', "%{$search}%"))  
             ->get()
             ->map(function ($item) {
@@ -95,13 +96,14 @@ class AuthController extends Controller
                     $item->unidade_escolha_comercial_vo
                 );
                 $item->unidade_original = $item->unidade;
+                $item->total_pessoas = 1 + $item->dependentes_count;
                 return $item;
             })
             ->groupBy(fn($item) => $item->unidade_original . '|' . $item->unidade_contabilizada)
             ->map(fn($group) => (object)[
                 'unidade_original' => $group->first()->unidade_original,
                 'unidade_contabilizada' => $group->first()->unidade_contabilizada,
-                'total' => $group->count()
+                'total' => $group->sum('total_pessoas')
             ])
             ->sortBy('unidade_contabilizada');
 
