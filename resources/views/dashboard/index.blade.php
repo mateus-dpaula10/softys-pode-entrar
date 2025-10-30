@@ -33,7 +33,7 @@
                                             <tr>
                                                 <th>Unidade Original</th>
                                                 <th>Unidade Contabilizada</th>
-                                                <th>Total</th>
+                                                <th>Total (APENAS DEPENDENTES)</th>
                                             </tr>
                                         </thead>
                                         <tbody>

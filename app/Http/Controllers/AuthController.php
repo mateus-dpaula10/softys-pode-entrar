@@ -96,7 +96,7 @@ class AuthController extends Controller
                     $item->unidade_escolha_comercial_vo
                 );
                 $item->unidade_original = $item->unidade;
-                $item->total_pessoas = 1 + $item->dependentes_count;
+                $item->total_pessoas = $item->dependentes_count;
                 return $item;
             })
             ->groupBy(fn($item) => $item->unidade_original . '|' . $item->unidade_contabilizada)
