@@ -22,6 +22,9 @@ class DependentesExport implements FromCollection, WithHeadings
                 'parentesco' => $item->parentesco,
                 'email' => $item->email,
                 'autorizacao' => $item->autorizacao,
+                'created_at' => $item->created_at
+                    ? $item->created_at->format('d/m/Y H:i')
+                    : null,
             ];
         });
     }
@@ -36,6 +39,7 @@ class DependentesExport implements FromCollection, WithHeadings
             'Parentesco',
             'Email',
             'Autorização',
+            'Data de Inscrição'
         ];
     }
 }

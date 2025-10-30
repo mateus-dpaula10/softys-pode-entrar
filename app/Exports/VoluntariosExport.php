@@ -23,6 +23,9 @@ class VoluntariosExport implements FromCollection, WithHeadings
                 'unit_contabilizada' => $item->support_unit ?: $item->unit,
                 'support_unit' => $item->support_unit,
                 'terms_accepted' => $item->terms_accepted,
+                'created_at' => $item->created_at
+                    ? $item->created_at->format('d/m/Y H:i')
+                    : null,
             ];
         });
     }
@@ -38,6 +41,7 @@ class VoluntariosExport implements FromCollection, WithHeadings
             'Unidade Contabilizada',
             'Unidade de Apoio',
             'Termos Aceitos',
+            'Data de Inscrição'
         ];
     }
 }

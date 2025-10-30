@@ -30,6 +30,9 @@ class ColaboradoresExport implements FromCollection, WithHeadings
                 'transporte_caieiras' => $item->transporte_caieiras,
                 'transporte_pirai' => $item->transporte_pirai,
                 'rota_pirai' => $item->rota_pirai,
+                'created_at' => $item->created_at
+                    ? $item->created_at->format('d/m/Y H:i')
+                    : null,
             ];
         });
     }
@@ -47,7 +50,8 @@ class ColaboradoresExport implements FromCollection, WithHeadings
             'Unidade Escolha Comercial e VO',
             'Transporte Caieiras',
             'Transporte Piraí',
-            'Rota Piraí'
+            'Rota Piraí',
+            'Data de Inscrição'
         ];
     }
 }
