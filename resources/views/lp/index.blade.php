@@ -25,7 +25,7 @@
 
                 <div class="col-12 col-lg-8 mt-3 mt-lg-0">
                     <figure>
-                        <img src="{{ asset('img/images/Criativo-Hotsite.png') }}" alt="Imagem com unidades, datas e horário" class="img-fluid">
+                        <img src="{{ asset('img/images/Criativo-Hotsite-2.png') }}" alt="Imagem com unidades, datas e horário" class="img-fluid">
                     </figure>
                 </div>
 
@@ -77,7 +77,7 @@
                                 <select class="form-select" name="unidade" id="unidade" required>
                                     <option value="">Selecione...</option>
                                     <option value="Anápolis">Anápolis</option>
-                                    <option value="Caieiras">Caieiras</option>
+                                    {{-- <option value="Caieiras">Caieiras</option> --}}
                                     <option value="Mogi das Cruzes">Mogi das Cruzes</option>
                                     <option value="Piraí">Piraí</option>
                                     <option value="Vila Olímpia">Vila Olímpia</option>
@@ -111,7 +111,7 @@
                                 <label class="form-label">Qual unidade você escolhe?</label>
                                 <select class="form-select" name="unidade_escolha_comercial_vo">
                                     <option value="">Selecione...</option>
-                                    <option value="Caieiras">Caieiras</option>
+                                    {{-- <option value="Caieiras">Caieiras</option> --}}
                                     <option value="Mogi das Cruzes">Mogi das Cruzes</option>
                                 </select>
                             </div>
@@ -128,7 +128,7 @@
                                 <select class="form-select" name="unidade_escolha_comercial">
                                     <option value="">Selecione...</option>
                                     <option value="Anápolis">Anápolis</option>
-                                    <option value="Caieiras">Caieiras</option>
+                                    {{-- <option value="Caieiras">Caieiras</option> --}}
                                     <option value="Mogi das Cruzes">Mogi das Cruzes</option>
                                     <option value="Piraí">Piraí</option>
                                 </select>
@@ -290,7 +290,7 @@
                                 <select name="unit" id="unitSelect" class="form-select" required>
                                     <option value="">Selecione...</option>
                                     <option value="Anápolis">Anápolis</option>
-                                    <option value="Caieiras">Caieiras</option>
+                                    {{-- <option value="Caieiras">Caieiras</option> --}}
                                     <option value="Mogi das Cruzes">Mogi das Cruzes</option>
                                     <option value="Piraí">Piraí</option>
                                     <option value="Vila Olímpia">Vila Olímpia</option>
@@ -304,7 +304,7 @@
                                 <select name="support_unit" class="form-select">
                                     <option value="">Selecione...</option>
                                     <option value="Mogi das Cruzes">Prefiro Mogi</option>
-                                    <option value="Caieiras">Prefiro Caieiras</option>
+                                    {{-- <option value="Caieiras">Prefiro Caieiras</option> --}}
                                 </select>
                             </div>
 
