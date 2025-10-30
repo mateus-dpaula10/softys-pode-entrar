@@ -152,19 +152,14 @@ class InscricaoController extends Controller
             'terms_accepted.accepted' => 'Você precisa aceitar o termo de compromisso para continuar.'
         ]);
 
-        $unidadeParaContagem = $request->unit;
+        $unit = $request->unit;
+        $supportUnit = $request->support_unit;
 
-        if ($request->unit === 'Vila Olímpia' && $request->filled('support_unit')) {
-            $unidadeParaContagem = $request->support_unit;
-        }
+        $unidadeParaContagem = $unit === 'Vila Olímpia' && $supportUnit ? $supportUnit : $unit;
 
-        $totalUnidade = InscricaoVoluntario::where(function ($query) use ($request, $unidadeParaContagem) {
-            if ($request->unit === 'Vila Olímpia') {
-                $query->where('unit', 'Vila Olímpia')
-                    ->where('support_unit', $unidadeParaContagem);
-            } else {
-                $query->where('unit', $unidadeParaContagem);
-            }
+        $totalUnidade = InscricaoVoluntario::where(function ($q) use ($unidadeParaContagem) {
+            $q->where('unit', $unidadeParaContagem)
+            ->orWhere('support_unit', $unidadeParaContagem);
         })->count();
             
         if ($totalUnidade >= 15) {
