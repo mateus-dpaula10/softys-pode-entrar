@@ -67,7 +67,7 @@ function toggleUnidadeEscolhaComercial() {
     if (selectCVO) selectCVO.value = '';
 
     const isComercial = dir.includes('comercial');
-    const isVilaOlimpia = uni === 'vila olímpia' || uni === 'vila olimpia';
+    const isVilaOlimpia = uni === 'vila olímpia';
 
     if (isComercial && isVilaOlimpia) {
         unidadeEscolhaDiv.classList.remove('d-none');
@@ -148,6 +148,14 @@ const btnSubmitColaboradores = document.getElementById('submitColaboradores');
 
 dependentesInput.addEventListener('input', function () {
     const qtd = parseInt(dependentesInput.value || 0);
+    
+    if (qtd <= 0) {
+        avisoMenor.classList.remove('d-none'); 
+        convidadosContainer.innerHTML = '';   
+        convidadosSection.classList.add('d-none');
+        return;
+    }
+    
     avisoMenor.classList.add('d-none');
 
     const dadosExistentes = [];

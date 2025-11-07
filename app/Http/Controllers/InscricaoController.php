@@ -58,21 +58,20 @@ class InscricaoController extends Controller
             $unidadeParaContagem = $request->unidade_escolha_comercial ?: $request->unidade;
         } elseif ($isVilaOlimpia) {
             $unidadeParaContagem = $request->unidade_escolha_comercial_vo ?: $request->unidade;
-        } else {
-            $unidadeParaContagem = $request->unidade;
         }
         
-        $totalUnidade = InscricaoColaborador::withCount('dependentes')
+        $totalDependentes = InscricaoColaborador::withCount('dependentes')
             ->where(function($q) use ($unidadeParaContagem) {
                 $q->where('unidade_escolha_comercial', $unidadeParaContagem)
                 ->orWhere('unidade_escolha_comercial_vo', $unidadeParaContagem)
                 ->orWhere('unidade', $unidadeParaContagem);
             })
             ->get()
-            ->sum(fn($colab) => 1 + $colab->dependentes_count);
+            ->sum(fn($colab) => $colab->dependentes_count);
 
         $dependentesNovos = $request->has('convidados') ? count($request->convidados) : 0;
-        $totalAposInclusao = $totalUnidade + 1 + $dependentesNovos;
+
+        $totalAposInclusao = $totalDependentes + $dependentesNovos;
 
         if ($totalAposInclusao >= 135) {
             return redirect()->back()->withErrors([

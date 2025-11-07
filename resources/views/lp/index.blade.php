@@ -138,7 +138,7 @@
                                 <label class="form-label">
                                     Qual a quantidade de dependentes que participará do evento? *Dependentes entende-se filhos, acompanhantes ou familiares.    
                                 </label>
-                                <input type="number" class="form-control" name="dependentes_qtd" id="dependentes_qtd" min="0" max="6">
+                                <input type="number" class="form-control" name="dependentes_qtd" id="dependentes_qtd" min="1" max="6" required>
                             </div>
         
                             <div id="convidadosSection" class="d-none">
@@ -290,10 +290,10 @@
                                 <select name="unit" id="unitSelect" class="form-select" required>
                                     <option value="">Selecione...</option>
                                     <option value="Anápolis">Anápolis</option>
-                                    {{-- <option value="Caieiras">Caieiras</option> --}}
-                                    <option value="Mogi das Cruzes">Mogi das Cruzes</option>
-                                    <option value="Piraí">Piraí</option>
-                                    <option value="Vila Olímpia">Vila Olímpia</option>
+                                    <!--<option value="Caieiras">Caieiras</option>-->
+                                    <!--<option value="Mogi das Cruzes">Mogi das Cruzes</option>-->
+                                    <!--<option value="Piraí">Piraí</option>-->
+                                    <!--<option value="Vila Olímpia">Vila Olímpia</option>-->
                                 </select>
                             </div>
 
