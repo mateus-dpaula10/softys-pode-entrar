@@ -286,8 +286,13 @@ function handleBirthChange(e) {
     if (existingAuth) existingAuth.remove();    
     
     parentescoSelect.innerHTML = `<option value="">Selecione...</option>`;
+    extraDiv.innerHTML = "";
 
-    if (idade >= 18) {
+    if (idade < 5) {
+        parentescoSelect.innerHTML = `<option value="">Menores de 5 anos não permitidos</option>`;
+    } else if (idade <= 15) {
+        parentescoSelect.innerHTML = `<option value="filho(a)" selected>Filho(a)</option>`;
+    } else if (idade >= 18) {
         parentescoSelect.insertAdjacentHTML('beforeend', `
             <option value="cônjuge">Cônjuge</option>
             <option value="responsável legal">Responsável legal</option>
@@ -303,9 +308,7 @@ function handleBirthChange(e) {
                     id="${emailFieldId}" placeholder="email@exemplo.com" required>
             </div>
         `);
-    } else if (idade <= 15) {
-        parentescoSelect.innerHTML = `<option value="filho(a)" selected>Filho(a)</option>`;
-    } else {
+    }  else {
         parentescoSelect.innerHTML = `<option value="">Idade entre 16 e 17 não permitida</option>`;
     }
     
@@ -377,31 +380,41 @@ function checkMaiorIdade() {
     const nascimentosInputs = document.querySelectorAll('.nascimento');
     const avisoMenor = document.getElementById('avisoMenor');
     const avisoMaiorQue15 = document.getElementById('avisoMaiorQue15');
+    const avisoMenorQue5 = document.getElementById('avisoMenorQue5');
 
     if (nascimentosInputs.length === 0) {
         avisoMenor.classList.add('d-none');
         avisoMaiorQue15.classList.add('d-none');
+        avisoMenorQue5.classList.add('d-none');
         btnSubmitColaboradores.disabled = false;
         return;
     }
 
     let temMaior = false;
     let temMaiorQue15 = false;
+    let temMenorQue5 = false;
     let temAlgumPreenchido = false;
 
     nascimentosInputs.forEach(input => {
         if (input.value) {
             temAlgumPreenchido = true;
-
             const dataNasc = new Date(input.value);
             if (!isNaN(dataNasc)) {
-                const idade = calcIdade(dataNasc);
-                
+                const idade = calcIdade(dataNasc);                
                 if (idade >= 18) temMaior = true;            
                 if (idade > 15 && idade < 18) temMaiorQue15 = true;            
+                if (idade < 5) temMenorQue5 = true;
             }            
         }
     });
+
+    if (temMenorQue5) {
+        avisoMenorQue5.classList.remove('d-none');
+        btnSubmitColaboradores.disabled = true;
+        return;
+    } else {
+        avisoMenorQue5.classList.add('d-none');
+    }
 
     if (temMaiorQue15) {
         avisoMaiorQue15.classList.remove('d-none');

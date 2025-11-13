@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inscricoes_colaboradores', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('telefone')->nullable();
             $table->string('unidade');
             $table->string('diretoria');

@@ -156,6 +156,10 @@
                                     Filhos(as) com mais de 15 anos não podem ser cadastrados(as) para este evento.
                                 </div>
 
+                                <div id="avisoMenorQue5" class="alert alert-danger d-none mt-3">
+                                    Filhos(as) com menos de 5 anos não podem ser cadastrados(as) para este evento.
+                                </div>
+
                                 <div id="convidadosContainer"></div>
                             </div>        
         
